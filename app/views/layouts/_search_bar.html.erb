@@ -1,0 +1,41 @@
+<!--search bar-->
+<div id="search-bar">
+  <div class="left">
+    <div class="search">
+      <%= simple_form_for :search, url: sections_search_path, method: :get do |f| %>
+          <table width="700" style="margin-top: -1px" >
+            <tr>
+              <td><strong>Search Kutangaza</strong></td>
+              <td><%= f.input "text1", label: false  %></td>
+              <td><b>In</b>&#160;&#160;<%= f.collection_select :section_id, Section.all, :id, :name  %></td>
+              <td><%= image_submit_tag("go.jpg", align: "absmiddle") %></td>
+            </tr>
+          </table>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="right">
+    <form style="display: inline-block;">
+      <b>Locations :</b></span>
+      <select name="locations" id="locations">
+        <% Location.all.each do |location| %>
+            <% if session[:current_location] == location.id %>
+                <option selected value="<%= location.name %>" ><%= location.name %></option>
+            <% else %>
+                <option value="<%= location.name %>"><%= location.name %></option>
+            <% end %>
+        <% end %>
+      </select>
+
+    </form>&#160;&#160;&#160;
+    <% if current_user.present? %>
+        <%= link_to image_tag("my-kutangaza.jpg", align: "absmiddle"), mykutangaza_path %>
+    <% else %>
+        <%= link_to image_tag("my-kutangaza.jpg",  align: "absmiddle"), root_url %>
+    <% end %>
+    &nbsp;<%= link_to image_tag("post-ad-free.jpg", align: "absmiddle"), categories_url %>
+  </div>
+
+</div>
+<!--search bar end-->

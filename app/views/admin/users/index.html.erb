@@ -1,0 +1,42 @@
+<% if notice %>
+<%= notice %>
+<% end %>
+
+
+<h1>Listing Users</h1>
+
+<table>
+  <tr>
+    <th> Email </th>
+    <th>Name</th>
+    <th>Nickname</th>
+    <th>Contact Person</th>
+    <th>Skype Id</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Token</th>
+    <th><br></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.nickname %></td>
+        <td><%= user.contact_person %></td>
+        <td><%= user.skype_id %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.address %></td>
+        <td><%= user.token%></td>
+        <td><%= link_to 'Show', [:admin, user] %></td>
+        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+        <td><%= link_to 'Destroy', [:admin, user], method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New User', new_admin_user_path %>

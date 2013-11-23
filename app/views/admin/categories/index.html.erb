@@ -1,0 +1,34 @@
+<h1>Listing categories</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Section</th>
+    <th>Urgent Ad Amount</th>
+    <th>Highlight Ad Amount</th>
+    <th>3 Days Top Ad Amount</th>
+    <th>7 Days Top Ad Amount</th>
+    <th>Homepage Gallery Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @categories.each do |category| %>
+  <tr>
+    <td><%= category.name %></td>
+    <td><%= category.section.try(:name) %></td>
+    <td><%= category.urgent_amount %></td>
+    <td><%= category.highlight_price %></td>
+    <td><%= category.top_ad3 %></td>
+    <td><%= category.top_ad7 %></td>
+    <td><%= category.gallery_amount %></td>
+    <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
+    <td><%= link_to 'Destroy', [:admin,category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Add New Subcategory', [:new, :admin, category, :subcategory] %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Category', new_admin_category_path %>

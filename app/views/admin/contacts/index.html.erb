@@ -1,0 +1,22 @@
+<h1>Listing contacts</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Subject</th>
+    <th>Message</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contacts.each do |contact| %>
+  <tr>
+    <td><%= contact.email %></td>
+    <td><%= contact.subject %></td>
+    <td><%= contact.message %></td>
+    <td><%= link_to 'Show',[:admin, contact] %></td>
+    <td><%= link_to 'Destroy', [:admin, contact], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+

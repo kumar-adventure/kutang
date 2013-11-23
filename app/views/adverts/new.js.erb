@@ -1,0 +1,15 @@
+<% if @value.present? && @value == '3' %>
+
+  $(".top_ad_amount").html("<%= escape_javascript (number_to_currency(@category.top_ad3)) %>")
+
+<% else %>
+
+    $(".top_ad_amount").html("<%= escape_javascript (number_to_currency(@category.top_ad7)) %>")
+
+<% end %>
+
+<% if @models.present? %>
+
+    $('#advert_model').html("<%= escape_javascript(options_for_select(@models)) %>");
+
+<% end %>

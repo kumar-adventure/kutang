@@ -1,0 +1,255 @@
+<!-- product-page -->
+<div id="product-page">
+
+<div id="product-page-header">
+  <div class="left1">
+    <div><%= link_to @advert.location.name, section_path(@advert.category.section_id) %> > <%= link_to @advert.category.section.name, section_path(@advert.category.section_id) %> > <%= link_to @advert.category.name, section_path(@advert.category.section_id, category_id: @advert.category.id) %> >
+      <% if @advert.subcategory.present? %>
+          <%= link_to @advert.subcategory.name, @advert.subcategory %> >
+      <% end %>
+      <%= "Ad ID "+@advert.id.to_s %>
+    </div>
+    <div style="font-size: 15pt; font-weight: bold; margin-top: 10px;"><%= @advert.title %> </div>
+  </div>
+  <div class="right1">
+  <%= image_tag("watch-icon.jpg", align: "absmiddle") %>&nbsp;&nbsp;<strong><a href="#" class="orange">Watch</a></strong>&nbsp;&nbsp;<%= image_tag("share-icon.jpg", align: "absmiddle") %>&nbsp;&nbsp;<strong><a href="#" class="orange">Share</a></strong>&nbsp;&nbsp;<%= image_tag("print-icon.jpg", align: "absmiddle") %>&nbsp;&nbsp;<strong><a href="#" class="orange">Print</a></strong>&nbsp;&nbsp;<%= image_tag("report-icon.jpg", align: "absmiddle") %>&nbsp;&nbsp;<strong><a href="#" class="orange">Report Ad</a></strong>
+  </div>
+</div>
+
+<!--left side-->
+<div class="left">
+  <!--owner-section-->
+  <div id="owner-section">
+    <% if @advert.photos.present? %>
+        <!--ad-img-->
+        <div class="ad-img">
+          <%= link_to larger_image_path(advert: @advert.id) do %>
+              <div class="large-car">
+                <%= @advert.photos.present? ? image_tag((@advert.photos.first).image(:medium)) : "Image not available."  %>
+              </div>
+          <% end %>
+          <div class="view-button">
+            <%= link_to image_tag("left-icon.jpg", align: "absmiddle", class: "prev"), '#' %>&nbsp;&nbsp;<%= link_to image_tag("view-large-button.jpg", align: "absmiddle"), larger_image_path(advert: @advert.id) %>&nbsp;&nbsp;<%= link_to image_tag("right-icon.jpg", align: "absmiddle", class: "next"), '#' %>
+          </div>
+
+
+          <div class="small-tumb-box">
+            <% @advert.photos.each do |img| %>
+                <a href="#" rel="<%= (img).image(:medium) %>" class="image"><%= image_tag((img).image(:medium)) %></a>
+            <% end %>
+          </div>
+        </div>
+        <!--ad-img end-->
+    <% end %>
+
+    <!--owner-section end-->
+
+    <!--data box-->
+
+    <div class="data-box">
+      <table cellpadding="5" cellspacing="0" width="100%" style="margin-bottom: 5px;">
+        <tr>
+          <td width="95">Date Listed</td>
+          <td width="175"><%= @advert.created_at.strftime("%e-%b-%y") %></td>
+        </tr>
+        <% if @advert.pricing_strategy.present? %>
+            <tr>
+              <td>Price:</td>
+              <td><%= @advert.pricing_strategy == "Price" ? "<b>#{number_to_currency(@advert.price)}</b>".html_safe : @advert.pricing_strategy   %></td>
+            </tr>
+        <% end %>
+        <% if @advert.event_time_from.present? %>
+            <tr>
+              <td>Event Date(s)</td>
+              <td><%= @advert.event_date_from %> To <%= @advert.event_date_to %></td>
+            </tr>
+            <tr>
+              <td>Event Time</td>
+              <td><%= @advert.event_time_from %> To <%= @advert.event_time_to %></td>
+            </tr>
+        <% end %>
+        <% if @advert.job_type.present? %>
+            <tr>
+              <td>Job Type:</td>
+              <td><%= @advert.job_type %></td>
+            </tr>
+        <% end %>
+        <tr>
+          <td>Address:</td>
+          <td><%= @advert.address %></td>
+        </tr>
+        <% if @advert.sale_by.present? %>
+            <tr>
+              <td>For Sale By:</td>
+              <td><%= @advert.sale_by %></td>
+            </tr>
+        <% end %>
+        <% if @advert.make.present? %>
+            <tr>
+              <td>Make:</td>
+              <td><%= @advert.make %></td>
+            </tr>
+            <tr>
+              <td>Model:</td>
+              <td><%= @advert.model %></td>
+            </tr>
+        <% end %>
+        <% if @advert.trim.present? %>
+            <tr>
+              <td>Trim:</td>
+              <td><%= @advert.trim %></td>
+            </tr>
+        <% end %>
+        <% if @advert.year.present? %>
+            <tr>
+              <td>Year:</td>
+              <td><%= @advert.year %></td>
+            </tr>
+        <% end %>
+        <% if @advert.kilometers.present? %>
+            <tr>
+              <td>Kilometers:</td>
+              <td><%= @advert.kilometers%></td>
+            </tr>
+        <% end %>
+        <% if @advert.body_type.present? %>
+            <tr>
+              <td>Body Type:</td>
+              <td><%= @advert.body_type%></td>
+            </tr>
+        <% end %>
+        <% if @advert.transmission.present? %>
+            <tr>
+              <td>Transmission:</td>
+              <td><%= @advert.transmission %></td>
+            </tr>
+        <% end %>
+        <% if @advert.color.present? %>
+            <tr>
+              <td>Color:</td>
+              <td><%= @advert.color %></td>
+            </tr>
+        <% end %>
+        <% if @advert.drivetrain.present? %>
+            <tr>
+              <td>Drivetrain:</td>
+              <td><%= @advert.drivetrain %></td>
+            </tr>
+        <% end %>
+        <% if @advert.vehicle_type.present? %>
+            <tr>
+              <td>Type:</td>
+              <td><%= @advert.vehicle_type %></td>
+            </tr>
+        <% end %>
+        <% if @advert.fuel_type.present? %>
+            <tr>
+              <td>Fuel Type:</td>
+              <td><%= @advert.fuel_type %></td>
+            </tr>
+        <% end %>
+      </table>
+
+
+     <!--white box-->
+        <div id="tabs">
+
+          <ul>
+            <li><a href="#tabs-1">Description</a></li>
+            <% if @advert.carproof.present? %>
+                <li><a href="#tabs-2">Car Proof</a></li>
+            <% end %>
+          </ul>
+          <div class="view">
+              <div id="tabs-1"><%= @advert.description%></div>
+              <% if @advert.carproof.present? %>
+                <div id="tabs-2"><%= @advert.address %></div>
+              <% end %>
+          </div>
+        </div>
+     <!--white box-->
+      <div style="margin: 10px auto 0 auto; width: 150px; background: #2D2D2D; color: #fff; font-weight: bold;text-align: center">Visits:&nbsp;<%= @advert.visits %></div>
+    </div>
+    <!--data box end-->
+
+  </div>
+  <!--owner-section end-->
+
+
+</div>
+<!--left side end-->
+
+<!--right side-->
+<div class="right">
+
+
+  <!--owner-box-->
+
+  <div class="owner-box">
+    <div class="heading">
+      Poster Contact Information
+    </div>
+    <table width="307" cellpadding="3" cellspacing="3">
+      <% if @advert.photos %>
+        <tr>
+         <td width="17"><%= image_tag("phone-icon.jpg") %></td>
+         <td width="253"><strong><%= number_to_phone(@advert.phone) %></strong></td>
+        </tr>
+      <% end %>
+      <% if @advert.user_id %>
+        <tr>
+         <td width="17"><%= image_tag("email-icon.jpg") %></td>
+         <td width="253"><%= link_to "View Poster's other Ads", poster_othersads_path(:user_id => @advert.user_id) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td><strong class="orange">Email Poster</strong></td>
+      </tr>
+      <%= simple_form_for :email, url: :email_to_poster, method: :get do |f| %>
+          <%= f.input :id, as: :hidden, input_html: {value: @advert.id } %>
+      <tr>
+        <td width="17">&nbsp;</td>
+        <td width="253"><%= f.input :sender_email, label: false, placeholder: "Your Email", input_html: {class: "input4"} %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="253"><%= f.input :sender_name, label: false, placeholder: "Your Name", input_html: {class: "input4"} %></td>
+      </tr>
+      <tr>
+        <td width="17">&nbsp;</td>
+        <td width="253"><%= f.input :sender_phone, label: false, placeholder: "Your Phone", input_html: {class: "input4"} %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="253"><%= f.input :message, as: :text, label: false, placeholder: "Your Message", input_html: { class: "textarea"} %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="253"><%= show_simple_captcha placeholder: "Enter secret code."%></td>
+      </tr>
+      <tr>
+         <td colspan="2" align="center" ><%= image_submit_tag("send-email.jpg", style: "width: 109px; height: 30px") %></td>
+      </tr>
+
+      <tr>
+        <td width="17">&nbsp;</td>
+        <td width="253">By emailing you agree to our <%= link_to "terms", terms_of_use_path %> & <%= link_to "privacy policy", privacy_policy_path  %>.</td>
+      </tr>
+    <% end %>
+    </table>
+    <div style="clear: both; height: 10px;"></div>
+
+  </div>
+
+  <!--owner-box end-->
+
+
+</div>
+<!--right side end-->
+
+
+</div>
+<!--product page end-->
+
+

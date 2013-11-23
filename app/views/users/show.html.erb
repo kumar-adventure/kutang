@@ -1,0 +1,94 @@
+<% if notice %>
+<%= notice %>
+<% end %>
+
+<p>
+  <b> Email:</b>
+  <%= @user.email %>
+</p>
+<!--left side-->
+<div class="left">
+
+  <!--slider-->
+  <div class="gallery">
+
+    <div class="inner">
+      <span class="post-ad-orange sprite absmiddle"></span><span class="new-classifieds sprite absmiddle" style="float: right"></span>
+      <br/>
+      <table width="100%" border="0" cellspacing="0">
+        <tr>
+          <td>
+            <a id="prev" href="#"><span class="arrow-left sprite"></span></a>
+          </td>
+          <td>
+            <div class="list_carousel">
+              <div class="caroufredsel_wrapper">
+                <ul id="foo3">
+
+                  <% (1..100).each do |i| %>
+
+                      <li style="width: 70px; height: 80px;"><%= image_tag("gallery-img.jpg", size: "64x48") %>
+                        <br/>Peter & James Painting <%= i %>...
+                      </li>
+                  <% end %>
+
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td><a id="next" href="#"><span class="arrow-right sprite"></span></a></td>
+        </tr>
+      </table>
+
+
+    </div>
+
+  </div>
+  <!--slider end-->
+
+
+  <!--services-->
+
+  <% Section.all.group_by(&:col).each do |section_group| %>
+      <div class="services">
+        <% section_group[1].each do |section| %>
+            <h1><%= image_tag((section.icon || "buy-sell-icon.jpg"), align: "absmiddle") %> <%= section.name %></h1>
+            <ul>
+              <% section.categories.each do |category| %>
+                  <li><%= link_to category.name, category %></li>
+              <% end %>
+            </ul><br><br>
+        <% end %>
+      </div>
+
+  <% end %>
+
+
+</div>
+<!--left side end-->
+
+<!--right side-->
+<div class="right">
+  <%= image_tag("banner.jpg") %>
+
+  <!--deal-->
+  <div class="deal">
+    <%= image_tag("deal.jpg") %>
+
+    <div class="inner">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><span class="deal-arrow sprite"></span></td>
+          <td align="center"><br>
+            46% off Kokmax Toys Mini
+            RC Racer<br>
+            <%= image_tag("deal-img.jpg") %></td>
+          <td><span class="deal-arrow2 sprite"></span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--deal ens-->
+
+</div>
+<!--right side end-->

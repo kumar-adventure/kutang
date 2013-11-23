@@ -1,0 +1,98 @@
+<div class="search-left">
+  <div class="red-bar"> Current Matches (<%= @adverts.count %>)  </div>
+
+  <strong class="side-menu" style="cursor:pointer;" ><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Category</strong>
+
+  <ul>
+    <li><strong class="orange">All Categories</strong></li>
+    <li>
+     <ul>
+       <% @sections.group_by(&:col).each do |section_group| %>
+         <% section_group[1].each do |section| %>
+           <li><%= section_links(section) %></li>
+             <% if section.id == 1  %>
+               <li>
+                 <ul>
+                   <% section.categories.each do |category| %>
+                    <li><%= category_links(category) %></li>
+                   <%end%>
+                 </ul
+               ></li>
+             <%end%>
+         <% end %>
+       <% end %>
+      </ul>
+    </li>
+  </ul><br>
+
+  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Location</strong>
+  <ul>
+    <li><strong class="orange"><%= "#{Location.find(session[:current_location]).name} (#{@adverts.count})"%></strong></li>
+  </ul><br>
+  <% if @adverts.where('ad_type = ? OR ad_type = ?', "Offering" ,"Wanted").present? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Type</strong>
+      <ul>
+        <li><%= filter_header_link('All Types', 'ad_type').html_safe %></li>
+        <% if @adverts.where(:ad_type => 'Offering').present? %>
+            <li><%= activated_link(@adverts, 'ad_type', 'Offering').html_safe %></li>
+        <% end %>
+        <% if @adverts.where(:ad_type => 'Wanted').present? %>
+            <li><%= activated_link(@adverts, 'ad_type', 'Wanted').html_safe %></li>
+        <% end %>
+      </ul><br>
+  <% end %>
+
+  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Featured Ads</strong>
+  <ul>
+    <li><%= filter_header_link('All Featured Ads', 'featured_ad').html_safe %></li>
+    <% if @adverts.where(:urgent_ads => true).present? %>
+        <li><%= featured_ads(@adverts, 'featured_ad', 'urgent_ads').html_safe %></li>
+    <% end %>
+    </ul><br>
+
+  <% if @adverts.where(:location_id => session[:current_location]).sum(:price).nonzero? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Price</strong>
+      <form>
+        <table style="margin: 0 auto;">
+          <tr>
+            <td ><input type="text" class="price-input2" id="field1" name="field1" placeholder="from" /> -</td>
+            <td ><input type="text" class="price-input2" id="field2" name="field2" placeholder="to" /></td>
+            <td><%= image_tag("go.jpg", id: 'price', align: 'absmiddle', style: 'cursor:pointer') %></td>
+          </tr>
+        </table>
+      </form><br>
+  <% end %>
+
+</div>
+<div class="search-right">
+  <!--search result table-->
+  <table width="98%" cellpadding="5" cellspacing="0" >
+    <tr class="sorting-bar">
+      <td style="width: 50px"></td>
+      <td style="width: 110px"></td>
+      <td style="width: 600px"></td>
+      <td style="width: 120px">Price</td>
+      <td style="width: 120px">Posted</td>
+    </tr>
+    <% unless @promotes.blank? %>
+        <tr>
+          <td colspan="2" class="top_ads"><strong>Top Ads</strong>&nbsp;&nbsp;<a href="#">See all</a></td>
+          <td colspan="3" class="top_ads" align="right">Want to promote your Ad here? <a href="#">Learn more</a></td>
+        </tr>
+        <%= render partial: "adverts/top_ads", object: @promotes %>
+        <tr><td colspan="5" class="top_ads" style="padding: 0px 0px">&nbsp;<a href="#"></a></td></tr>
+    <% end %>
+
+    <% unless @all_adverts.blank? %>
+
+        <%= render partial: "adverts/adverts", object: @all_adverts %>
+
+    <% end %>
+  </table>
+  <!--search result table end-->
+
+
+  <div class="paging-bar"><%= will_paginate @adverts %></div>
+
+
+</div>

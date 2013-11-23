@@ -1,0 +1,15 @@
+  <!--slider-->
+  <div class="heading">
+    Select Category
+  </div>
+  <!--slider end-->
+  <!--services-->
+<div class="inner-page">
+  <div class="content">
+  <ul>
+  <% @subcategories.each do |sub| %>
+      <li><%= link_to sub.name, new_subcategory_advert_path(sub) %></li>
+  <% end %>
+  </ul>
+  </div>
+</div>

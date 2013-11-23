@@ -1,0 +1,28 @@
+<% if notice %>
+    <%= notice %>
+<% end %>
+<div class="heading">Contact Us</div>
+
+<div class="inner-page">
+
+  <div class="content">
+
+
+
+    <span class="purpal">Question about how to use the site or how it works?</span><br>
+    Check out our <a href="#">Frequently Asked Questions</a> or <%=  link_to "Policies", privacy_policy_path  %> first to get a quick answer.<br>
+    <br>
+    <span class="purpal">Reporting illegal or infringing content?</span><br>
+    Please include your name and contact imformation, the Ad ID, and the reasonyou belive the Ad is illegal or infringing. If any imformation is missing, your report will not be processed.<br>
+    <br>
+
+     <%= render 'form' %>
+
+  </div>
+
+</div><br><br>
+<!--contact us end-->
+
+
+
+

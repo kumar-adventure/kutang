@@ -1,0 +1,14 @@
+<% if notice %>
+<%= notice %>
+<% end %>
+
+<p>
+  <b> Email:</b>
+  <%= @user.email %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_admin_user_path(@user) %> |
+<%= link_to 'Back', admin_users_path %>

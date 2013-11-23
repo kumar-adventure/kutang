@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="admin">
+<!---main--->
+<div id="main">
+
+  <div id="header">
+    <div id="logo"><%#= image_tag("logo.jpg") %></div>
+    <div id="header_right">
+      Logged in as: <%= current_user.email %>
+
+      <div id="upper_nav">
+        <ul>
+          <li><%#= link_to "Account", edit_admin_user_path(current_user) %></li>
+          <li><%= link_to "logout", logout_path %></li>
+          <li><%= link_to "Site", root_path %></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+  <!---header end--->
+
+  <div id="main2">
+
+    <!---nav--->
+    <div id="nav">
+      <ul>
+        <li><%#= link_to "Pages", admin_pages_path %></li>
+
+        <li><%= link_to "Users", admin_users_path %></li>
+        <li><%= link_to "Sections", admin_sections_path %></li>
+        <li><%= link_to "Categories", admin_categories_path %></li>
+        <li><%= link_to "Sub-Categories", admin_subcategories_path %></li>
+        <li><%= link_to "Advertisements", admin_adverts_path %></li>
+        <li><%= link_to "Advertisements Awaiting Approval", admin_categories_path %></li>
+        <li><%= link_to "Location", admin_locations_path %></li>
+        <li><%= link_to "Make", admin_makes_path %></li>
+        <li><%= link_to "Models", admin_models_path %></li>
+        <li><%= link_to "Contacts", admin_contacts_path %></li>
+        <li><%= link_to "Orders", admin_orders_path %></li>
+       </ul>
+
+    </div>
+    <!---nav end--->
+
+    <!--container-->
+    <div id="container">
+<%#= render "layouts/errors" %>
+      <%= yield %>
+
+    </div>
+    <!--container right end-->
+
+  </div>
+  <!--container end-->
+
+</div>
+<!---maain2 end---->
+
+</div>
+<!---main--->
+</body>
+</html>

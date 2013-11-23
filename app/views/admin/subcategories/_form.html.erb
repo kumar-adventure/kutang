@@ -1,0 +1,75 @@
+<br>
+<%= form_for [:admin, @category, @subcategory] do |f| %>
+  <% if @subcategory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subcategory.errors.count, "error") %> prohibited this subcategory from being saved:</h2>
+
+      <ul>
+      <% @subcategory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label "Subcategory Name" %><br />
+    <%= f.text_field :name %>
+  </div><br>
+    <h4>Select Sub-category Form Fields :</h4>
+    <div class="admin-form-fields">
+      <table cellpadding="3" cellspacing="3">
+        <tr height="50px;">
+          <% if !@category.ad_type %>
+              <td width="200px;">Ad Type: <%= f.check_box :ad_type %></td>
+          <% end %>
+          <% if !@category.pricing %>
+              <td width="200px;">Price <%= f.check_box :pricing %></td>
+          <% end %>
+          <% if !@category.sale_by %>
+              <td width="200px;">For Sale By: <%= f.check_box :sale_by %></td>
+          <% end %>
+          <% if !@category.gender %>
+              <td width="200px;">Gender: <%= f.check_box :gender %></td>
+          <% end %>
+          <% if !@category.year %>
+            <td width="200px">Year: <%= f.check_box :year %></td>
+          <% end %>
+        </tr>
+        <tr height="50px;">
+          <% if !@category.color %>
+            <td width="200px">Color: <%= f.check_box :color %></td>
+          <% end %>
+          <% if !@category.make %>
+            <td width="200px">Make: <%= f.check_box :make %></td>
+          <% end %>
+          <% if !@category.model %>
+            <td width="200px">Model: <%= f.check_box :model %></td>
+          <% end %>
+          <% if !@category.kilometers %>
+            <td width="200px">Kilometers: <%= f.check_box :kilometers %></td>
+          <% end %>
+          <% if !@category.engine %>
+            <td width="200px">Engine Displacement: <%= f.check_box :engine %></td>
+          <% end %>
+        </tr>
+        <tr height="50px;">
+          <% if !@category.frame %>
+            <td width="200px">Frame Size: <%= f.check_box :frame %></td>
+          <% end %>
+          <% if !@category.brand %>
+            <td width="200px">Product Brand: <%= f.check_box :brand %></td>
+          <% end %>
+          <% if !@category.carrier %>
+            <td width="200px">Carrier: <%= f.check_box :carrier %></td>
+          <% end %>
+          <% if !@category.diameter %>
+            <td width="200px">Diameter: <%= f.check_box :diameter %></td>
+          <% end %>
+          <td></td>
+        </tr>
+      </table>
+    </div><br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

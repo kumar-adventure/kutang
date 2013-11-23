@@ -1,0 +1,103 @@
+<!--left side-->
+<div class="left">
+
+  <!--slider-->
+  <div class="gallery">
+
+    <div class="inner">
+      <%= link_to categories_path do %><span class="post-ad-orange sprite absmiddle"></span><% end %><span class="new-classifieds sprite absmiddle" style="float: right"></span>
+      <br/>
+      <table width="100%" border="0" cellspacing="0">
+        <tr>
+          <td>
+            <a id="prev" href="#"><span class="arrow-left sprite"></span></a>
+          </td>
+          <td>
+            <div class="list_carousel">
+              <div class="caroufredsel_wrapper">
+                <ul id="foo3">
+
+                  <% @sections.each do |section| %>
+                      <% section.adverts.approved.each do |advert| %>
+                        <% if advert.homepage_ads.present? %>
+                          <li style="width: 70px; height: 80px; padding: 0 8px;">
+                            <%= link_to advert do %> <%= advert.photos.present? ? image_tag((advert.photos.first).image(:thumb)) : "No image" %><br/><%= truncate((advert.title),length: 20) %><% end %>
+                          </li>
+                        <% end %>
+                      <% end %>
+                  <% end %>
+
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td><a id="next" href="#"><span class="arrow-right sprite"></span></a></td>
+        </tr>
+      </table>
+
+
+    </div>
+
+  </div>
+  <!--slider end-->
+
+
+  <!--services-->
+
+  <% Section.all.group_by(&:col).each do |section_group| %>
+      <div class="services">
+        <% section_group[1].each do |section| %>
+
+            <h1><%= link_to section do %> <%= image_tag((section.icon || "buy-sell-icon.jpg"), align: "absmiddle") %> <%=  section.name %><% end %></h1>
+            <% if section.name == "Real Estate" %>
+                <ul>
+                  <li style="list-style:none;"><b>For Rent :</b></li>
+                  <% section.categories.rent.order(:name).each do |category| %>
+                      <li><%= link_to category.name, section_path(category.section_id, category_id: category) %></li>
+                  <% end %>
+                  <li style="list-style:none;"><b>For Sale :</b></li>
+                  <% section.categories.sale.order(:name).each do |category| %>
+                      <li><%= link_to category.name, category_path(category) %></li>
+                  <% end %>
+                </ul><br>
+            <% else %>
+                <ul>
+                  <% section.categories.order(:name).each do |category| %>
+                      <li><%= link_to category.name, section_path(category.section_id, category_id: category) %></li>
+                  <% end %>
+                </ul><br>
+            <% end %>
+        <% end %>
+      </div>
+
+  <% end %>
+
+
+</div>
+<!--left side end-->
+
+<!--right side-->
+<div class="right">
+  <%= image_tag("banner.jpg") %>
+
+  <!--deal-->
+  <div class="deal">
+    <%= image_tag("deal.jpg") %>
+
+    <div class="inner">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><span class="deal-arrow sprite"></span></td>
+          <td align="center"><br>
+            46% off Kokmax Toys Mini
+            RC Racer<br>
+            <%= image_tag("deal-img.jpg") %></td>
+          <td><span class="deal-arrow2 sprite"></span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--deal ens-->
+
+</div>
+<!--right side end-->

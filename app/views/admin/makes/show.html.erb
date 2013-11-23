@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Make Title:</b>
+  <%= @make.title %>
+</p>
+
+<p>
+  <b>Category Name:</b>
+  <%= @make.category.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_make_path(@make) %> |
+<%= link_to 'Back', admin_makes_path %>

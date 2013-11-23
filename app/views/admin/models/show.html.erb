@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Model Title:</b>
+  <%= @model.title %>
+</p>
+
+<p>
+  <b>Make:</b>
+  <%= @model.make.title %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_admin_model_path(@model) %> |
+<%= link_to 'Back', admin_models_path %>

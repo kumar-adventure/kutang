@@ -1,0 +1,194 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Featured:</b>
+  <%= @advert.featured %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%= @advert.approved %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @advert.title %>
+</p>
+
+<% if @advert.user_id %>
+ <p>
+   <b>User Name</b>
+   <%= @advert.user.name %>
+ </p>
+<% end %>
+
+<p>
+  <b>Category:</b>
+  <%= @advert.category.name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @advert.location.name %>
+</p>
+
+<% if @advert.ad_type %>
+    <p>
+      <b>Ad Type</b>
+      <%= @advert.ad_type%>
+    </p>
+<% end %>
+
+<% if @advert.pricing_strategy %>
+    <p>
+      <b>Price :</b>
+      <%= @advert.pricing_strategy == 'Price' ? @advert.price : @advert.pricing_strategy == 'Free' ? 'Free' : @advert.pricing_strategy == 'Please Contact' ? 'Please Contact' : 'Swap/Trade' %>
+    </p>
+<% end %>
+
+<% if @advert.sale_by %>
+ <p>
+   <b>For Sale By :</b>
+   <%= @advert.sale_by %>
+ </p>
+<% end %>
+
+<% if @advert.make %>
+    <p>
+      <b>Make :</b>
+      <%= @advert.make %>
+    </p>
+<% end %>
+
+<% if @advert.model %>
+    <p>
+      <b>Model :</b>
+      <%= @advert.model %>
+    </p>
+<% end %>
+
+<% if @advert.trim %>
+    <p>
+      <b>Trim :</b>
+      <%= @advert.trim %>
+    </p>
+<% end %>
+
+<% if @advert.year %>
+    <p>
+      <b>Year :</b>
+      <%= @advert.year %>
+    </p>
+<% end %>
+
+<% if @advert.kilometers %>
+    <p>
+      <b>Kilometers :</b>
+      <%= @advert.kilometers %>
+    </p>
+<% end %>
+
+<% if @advert.body_type %>
+    <p>
+      <b>Body Type :</b>
+      <%= @advert.body_type %>
+    </p>
+<% end %>
+
+<% if @advert.transmission %>
+    <p>
+      <b>Transmission :</b>
+      <%= @advert.transmission %>
+    </p>
+<% end %>
+
+<% if @advert.color %>
+    <p>
+      <b>Color :</b>
+      <%= @advert.color %>
+    </p>
+<% end %>
+
+<% if @advert.drivetrain %>
+    <p>
+      <b>Drivetrain :</b>
+      <%= @advert.drivetrain %>
+    </p>
+<% end %>
+
+<% if @advert.vehicle_type %>
+    <p>
+      <b>Type</b>
+      <%= @advert.vehicle_type %>
+    </p>
+<% end %>
+
+<% if @advert.fuel_type %>
+    <p>
+      <b>Fuel Type :</b>
+      <%= @advert.fuel_type %>
+    </p>
+<% end %>
+
+<% if @advert.trim %>
+    <p>
+      <b>Trim :</b>
+      <%= @advert.trim %>
+    </p>
+<% end %>
+
+<% if @advert.engine_displacement %>
+    <p>
+      <b>Engine Displacement</b>
+      <%= @advert.engine_displacement %>
+    </p>
+<% end %>
+
+<% if @advert.job_type %>
+    <p>
+      <b>Job Type :</b>
+      <%= @advert.job_type %>
+    </p>
+<% end %>
+
+<% if @advert.event_date_from && @advert.event_time_to %>
+    <p>
+      <b>Event Date :</b>
+      From <%= @advert.event_date_from %> to <%= @advert.event_date_to %>
+    </p>
+<% end %>
+
+<% if @advert.event_date_from && !@advert.event_time_to %>
+    <p>
+      <b>Date of Birth :</b>
+      <%= @advert.event_date_from %>
+    </p>
+<% end %>
+
+<p>
+  <b>Description:</b>
+  <%= @advert.description %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @advert.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @advert.email %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @advert.address %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @advert.website %>
+</p>
+
+<%= link_to 'Edit', edit_admin_advert_path(@advert) %> |
+<%= link_to 'Back', admin_adverts_path %>

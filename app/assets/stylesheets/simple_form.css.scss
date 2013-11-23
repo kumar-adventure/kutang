@@ -1,0 +1,301 @@
+.simple_form {
+  $indent: 190px;
+
+  #advert_location_id{
+    width: 210px;
+    text-align: center;
+  }
+
+  label {
+    font-weight: normal;
+  }
+
+  .input-field{
+    width: 400px;
+  }
+
+  #advert_location_id option{
+    padding: 2px 0;
+  }
+
+  .advert_event_date_from{
+    width: 265px;
+   .date{
+      width: 110px;
+      margin: 0 3px;
+   }
+    #advert_event_date_from_3i{
+      width: 55px;
+    }
+    #advert_event_date_from_1i{
+      width: 70px;
+    }
+  }
+
+  .advert_event_date_to{
+    width: 265px;
+    float: left;
+    .date{
+      width: 110px;
+      margin: 0 3px;
+    }
+      #advert_event_date_to_3i{
+        width: 55px;
+      }
+      #advert_event_date_to_1i{
+        width: 70px;
+      }
+  }
+
+  .advert_event_time_from{
+
+    select{
+      float: left;
+      width: 55px;
+      margin: 0 5px;
+    }
+  }
+
+  .advert_event_time_to{
+    select{
+      float: left;
+      width: 55px;
+      margin: 0 5px;
+    }
+  }
+
+
+
+
+
+  select#order_country {
+    width: 300px;
+  }
+  table tr th{
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .advert_price, .advert_pricing_strategy, .advert_ad_type, .advert_sale_by, .advert_vin, .advert_event_date_to, .advert_event_date_from, .advert_urgent_ad, .advert_urgent, .advert_dob {
+    display: inline-block;
+  }
+
+}
+
+
+
+.search {
+  width: 750px;
+
+  input.string{
+
+    margin: 0px;
+    width: 250px;
+    height: 29px;
+    padding: 0px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color: #fff;
+    -moz-box-shadow: inset 0 0 10px #ebebeb;
+    -webkit-box-shadow: inset 0 0 10px #ebebeb;
+    box-shadow: inset 0 0 10px #ebebeb;
+    border: 1px solid #ccc;
+  }
+
+
+
+  option{
+    height: 20px;
+    padding: 5px;
+
+  }
+
+
+
+  select{
+    margin: 0px;
+    width: 250px;
+    height: 29px;
+    padding: 3px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color: #fff;
+    -moz-box-shadow: inset 0 0 10px #ebebeb;
+    -webkit-box-shadow: inset 0 0 10px #ebebeb;
+    box-shadow: inset 0 0 10px #ebebeb;
+    border: 1px solid #ccc;
+
+  }
+
+
+}
+
+
+#errors_and_notices {
+  width: 649px;
+  float: right;
+}
+
+.required {
+  abbr {
+    color: #ff0000;
+  }
+}
+
+
+
+.notice {
+  color: #80100C;
+}
+
+.form-actions {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.error_msg {
+  width: 60%;
+  margin: 0px;
+  font-size: 11px;
+}
+
+
+.button-field {
+  text-align: center;
+  width: 150px;
+  margin-left: 200px;
+}
+
+abbr[title], acronym[title] {
+  border-bottom-width: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+  vertical-align: middle;
+  position: relative;
+
+}
+
+input[type=submit] {
+  padding: 0;
+}
+
+input[type=radio] {
+  bottom: 2px;
+
+}
+div.input.radio_buttons{
+  padding: 0px;
+
+}
+
+.radio{
+  padding: 0;
+  margin: 0;
+}
+
+.radio label {
+  padding: 0 5px 0 10px;
+}
+
+
+div.check_boxes {
+  label.control-label {
+    float: none;
+  }
+
+  label.checkbox {
+    margin-left: 0px;
+  }
+}
+
+
+input{
+  padding: 1px;
+  height:25px;
+
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+
+}
+.textarea1{
+  padding:5px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+  height:80px;
+  width:295px       }
+
+.textarea{
+  padding:5px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+  height:80px;
+  width:236px
+}
+
+.input1{
+  padding:1px;
+  width:300px;
+  height:25px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+}
+.input2{
+  padding:3px;
+  width:100px;
+  height:15px;       border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+}
+.input3{
+  padding:3px;
+  width:150px;
+  height:15px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+}
+
+.input4{
+  padding:3px;
+  width:240px;
+  height:22px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border:1px solid #b5b5b5;
+}
+
+.file-input {
+  overflow:  hidden;
+  position: relative;
+}
+
+.file-input input {
+  cursor: pointer;
+  font-size: 23px;
+  margin: -55px 0 20px -60px;
+  width: 85px;
+  height:  65px;
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+
+
+
+
+

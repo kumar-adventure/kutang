@@ -1,0 +1,71 @@
+<%= simple_form_for [:admin, @advert] do |f| %>
+  <% if @advert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@advert.errors.count, "error") %> prohibited this advert from being saved:</h2>
+
+      <ul>
+      <% @advert.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+      <%= f.input :ad_type, collection: [['I am offering', 'Offering'], ['I want', 'Wanted']], as: :radio_buttons, label: "Ad Type" %>
+      <%= f.input :sale_by, collection: [['Owner', 'Owner'], ['Dealer', 'Dealer']], as: :radio_buttons, label: "For Sale By" %>
+    </div>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :featured %><br />
+    <%= f.check_box :featured %>
+  </div>
+  <div class="field">
+    <%= f.label :approved %><br />
+    <%= f.check_box :approved %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %> <%= f.input :pricing_strategy, collection: ["$","Free","Please Contact","Swap/Trade"], as: :radio_buttons, label: false %>
+  </div>
+  <div class="fields">
+    <%= f.fields_for :photos  do |p| %>
+        <%= p.file_field :image %>
+    <% end %>    <br>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.association :category %>
+  </div>
+  <div class="field">
+    <%= f.association :location %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_area :address %>
+  </div>
+  <div class="field">
+    <%= f.label :website %><br />
+    <%= f.text_field :website %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

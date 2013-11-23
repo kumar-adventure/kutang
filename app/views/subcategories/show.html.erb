@@ -1,0 +1,186 @@
+<div class="search-left">
+
+  <div class="red-bar"> Current Matches (<%= @adverts.count %>) </div>
+
+  <strong class="side-menu" style="cursor:pointer;" ><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Category</strong>
+
+  <ul>
+    <li><%= link_to "All Categories", all_categories_path %></li>
+    <li>
+      <ul>
+        <li><%= link_to "#{Category.find(session[:current_category]).section.name}", section_path(Category.find(session[:current_category]).section.id) %></li>
+        <li>
+          <ul>
+            <% @adverts.group(:category_id).count.each do |category, count| %>
+                <li><%= link_to  "#{Category.find(category).name} ", category_path(category)%></strong></li>
+                <% unless Category.find(category).subcategories.blank? %>
+                    <li>
+                      <ul>
+                        <% @adverts.group(:subcategory_id).count.each do |subcategory, count| %>
+                            <li><strong class="orange"><%=  "#{Subcategory.find(subcategory).name} (#{count})" %></strong></li>
+                        <% end %>
+                      </ul>
+                    </li>
+                <% end %>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul><br>
+
+  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Location</strong>
+  <ul>
+    <% @adverts.group(:location_id).count %>
+    <li><strong class="orange"><%= "#{Location.find(session[:current_location]).name} (#{@adverts.count})"%></strong></li>
+  </ul><br>
+
+  <% unless @adverts.where(:ad_type =>'Offering' , :ad_type => 'Wanted').blank? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Type</strong>
+      <ul>
+        <li><strong class="orange">All Types</strong></li>
+        <% if @adverts.where(:ad_type => 'Offering').present? %>
+            <li><%= link_to "Offering (#{@adverts.where(:ad_type => 'Offering').count})", ad_type_path(:ad_type => adverts_ids(@adverts.where(:ad_type => 'Offering')) ) %></li>
+        <% end %>
+        <% if @adverts.where(:ad_type => 'Wanted').present? %>
+            <li><%= link_to "Wanted (#{@adverts.where(:ad_type => 'Wanted').count})", ad_type_path(:ad_type => adverts_ids(@adverts.where(:ad_type => 'Wanted'))) %></li>
+        <% end %>
+      </ul><br>
+  <% end %>
+
+  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Featured Ads</strong>
+  <ul>
+    <li><strong class="orange">All Featured Ads</strong></li>
+    <li><a href="#">Urgent Ads</a></li>
+    <li><a href="#">Certified Pre-Owned</a></li>
+  </ul><br>
+  <% if @adverts.sum(:price).nonzero? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Price</strong>
+      <%= form_tag :search_by_price, method: :get do %>
+          <table style="margin: 0 auto;">
+            <tr>
+              <td ><%= text_field_tag 'field1','', class: "price-input2", placeholder: "from" %> -</td>
+              <td ><%= text_field_tag 'field2','', class: "price-input2", placeholder: "to" %></td>
+              <td><%= submit_tag("Go") %></td>
+            </tr>
+          </table>
+      <% end %><br>
+  <% end %>
+
+  <% if @adverts.where(:sale_by => 'Owner', :sale_by => 'Dealer').present? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> For Sale By</strong>
+      <ul>
+        <% if @adverts.where(:sale_by => "Owner").present? %>
+            <li><%= link_to "Owner (#{@adverts.where(:sale_by => "Owner").count})", sale_by_path(:sale_by => adverts_ids(@adverts.where(:sale_by => "Owner"))) %></li>
+        <% end %>
+        <% if @adverts.where(:sale_by => "Dealer").present? %>
+            <li><%= link_to "Dealer (#{@adverts.where(:sale_by => "Dealer").count})",sale_by_path(:sale_by => adverts_ids(@adverts.where(:sale_by => "Dealer"))) %></li>
+        <% end %>
+      </ul><br>
+  <% end %>
+
+
+  <% if @adverts.where(:year => nil).blank? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Year</strong>
+      <%= form_tag :search_by_years, method: :get do %>
+          <table style="margin: 0 auto;" >
+            <tr>
+              <td ><%= text_field_tag 'field1','', class: "price-input2" %> -</td>
+              <td ><%= text_field_tag 'field2','', class: "price-input2" %></td>
+              <td><%= submit_tag("Go") %></td>
+            </tr>
+          </table>
+      <% end %><br>
+  <% end %>
+
+  <% unless @adverts.where(:make => nil).present? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Make</strong>
+      <ul>
+        <% @adverts.group(:make).count.each do |mk, cnt| %>
+            <li><%= link_to "#{mk} (#{cnt})",make_path(:make => adverts_ids(@adverts.where(make: mk))) %></li>
+        <% end %>
+      </ul><br>
+  <% end %>
+
+  <% unless @adverts.where(:kilometers => nil).present? %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Kilometers</strong>
+      <%= form_tag :search_by_kilometers, method: :get do %>
+          <table style="margin: 0 auto;" >
+            <tr>
+              <td ><%= text_field_tag 'field1','', class: "price-input2", placeholder: "from" %> -</td>
+              <td ><%= text_field_tag 'field2','', class: "price-input2", placeholder: "to" %></td>
+              <td><%= submit_tag("Go") %></td>
+            </tr>
+          </table>
+      <% end %><br>
+  <% end %>
+
+  <% unless @adverts.where(:body_type => nil).present?  %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Body Type</strong>
+      <ul>
+        <% @adverts.order(:body_type).group('body_type').count.each do |body, count| %>
+            <li><%= link_to "#{body} (#{count})", body_type_path(:body_type => adverts_ids(@adverts.where(body_type: body))) %></li>
+        <% end %>
+      </ul><br>
+  <% end   %>
+
+  <% unless @adverts.where(:transmission => nil).present?  %>
+      <strong class="side-menu" style="cursor: pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Transmission</strong>
+      <ul>
+        <% @adverts.order(:transmission).group('transmission').count.each do |transmission, count| %>
+            <li><%= link_to "#{transmission} (#{count})", transmission_path(:transmission => adverts_ids(@adverts.where(transmission: transmission)))%></li>
+        <% end %>
+      </ul><br>
+  <% end   %>
+
+  <% unless @adverts.where(:color => nil).present?  %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Color</strong>
+      <ul>
+        <% @adverts.order(:color).group('color').count.each do |color, count| %>
+            <li><%= link_to "#{color} (#{count})", color_path(:color => adverts_ids(@adverts.where(color: color))) %></li>
+        <% end %>
+      </ul><br>
+  <% end   %>
+
+  <% unless @adverts.where(:fuel_type => nil).present?  %>
+      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Fuel Type</strong>
+      <ul>
+        <% @adverts.order(:fuel_type).group('fuel_type').count.each do |fuel, count| %>
+            <li><%= link_to "#{fuel} (#{count})", fuel_type_path(:fuel_type => adverts_ids(@adverts.where(fuel_type: fuel))) %></li>
+        <% end %>
+      </ul><br>
+  <% end   %>
+</div>
+
+<div class="search-right">
+  <!--search result table-->
+  <table width="98%" cellpadding="5" cellspacing="0" >
+    <tr class="sorting-bar">
+      <td style="width: 50px"></td>
+      <td style="width: 110px"></td>
+      <td style="width: 600px"></td>
+      <td style="width: 120px">Price</td>
+      <td style="width: 120px">Posted</td>
+    </tr>
+    <% unless @promotes.blank? %>
+        <tr>
+          <td colspan="2" class="top_ads"><strong>Top Ads</strong>&nbsp;&nbsp;<a href="#">See all</a></td>
+          <td colspan="3" class="top_ads" align="right">Want to promote your Ad here? <a href="#">Learn more</a></td>
+        </tr>
+        <%= render partial: "adverts/top_ads", object: @promotes %>
+        <tr><td colspan="5" class="top_ads" style="padding: 0px 0px">&nbsp;<a href="#"></a></td></tr>
+    <% end %>
+
+    <% if @all_adverts.present? %>
+
+        <%= render partial: "adverts/adverts", object: @all_adverts %>
+
+    <% end %>
+  </table>
+  <!--search result table end-->
+
+
+  <div class="paging-bar"><%= will_paginate @adverts %></div>
+
+
+</div>

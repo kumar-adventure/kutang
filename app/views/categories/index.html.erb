@@ -1,0 +1,72 @@
+<!--left side-->
+<div class="left">
+
+  <!--slider-->
+  <div class="gallery">
+
+    <div class="inner">
+      <span style="font-size: 15px;font-weight: bold; padding: 20px" > Select a Category. </span>
+    </div>
+
+  </div>
+  <!--slider end-->
+
+
+  <!--services-->
+
+  <% Section.all.group_by(&:col).each do |section_group| %>
+      <div class="services">
+        <% section_group[1].each do |section| %>
+            <h1><%= image_tag((section.icon || "buy-sell-icon.jpg"), align: "absmiddle") %> <%= section.name %></h1>
+            <% if section.name == "Real Estate" %>
+                <ul>
+                  <li style="list-style:none;"><b>For Rent :</b></li>
+                  <% section.categories.rent.order(:name).each do |category| %>
+                      <li><%= link_to category.name, new_category_advert_path(category) %></li>
+                  <% end %>
+                  <li style="list-style:none;"><b>For Sale :</b></li>
+                  <% section.categories.sale.order(:name).each do |category| %>
+                      <li><%= link_to category.name, new_category_advert_path(category) %></li>
+                  <% end %>
+                </ul><br>
+            <% else %>
+                <ul>
+                  <% section.categories.order(:name).each do |category| %>
+                      <li><%= subcategories_present?(category)  %></li>
+                  <% end %>
+                </ul><br>
+            <% end %>
+        <% end %>
+      </div>
+
+  <% end %>
+
+
+</div>
+<!--left side end-->
+
+<!--right side-->
+<div class="right">
+  <%= image_tag("banner.jpg") %>
+
+  <!--deal-->
+  <div class="deal">
+    <%= image_tag("deal.jpg") %>
+
+    <div class="inner">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><span class="deal-arrow sprite"></span></td>
+          <td align="center"><br>
+            46% off Kokmax Toys Mini
+            RC Racer<br>
+            <%= image_tag("deal-img.jpg") %></td>
+          <td><span class="deal-arrow2 sprite"></span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--deal ens-->
+
+</div>
+<!--right side end-->

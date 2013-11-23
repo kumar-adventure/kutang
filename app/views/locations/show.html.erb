@@ -1,0 +1,35 @@
+<div class="search-left">
+  <%=  render "layouts/left_side_bar" %>
+</div>
+<div class="search-right">
+  <!--search result table-->
+  <table width="98%" cellpadding="5" cellspacing="0" >
+    <tr class="sorting-bar">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td width="130" style="text-align: center;">Price</td>
+      <td width="130" style="text-align: center;">Posted</td>
+    </tr>
+    <% unless @promotes.blank? %>
+     <tr>
+       <td colspan="3" class="top_ads"><strong>Top Ads</strong>&nbsp;&nbsp;<a href="#">See all</a></td>
+       <td colspan="2" class="top_ads">Want to promote your Ad here? <a href="#">Learn more</a></td>
+     </tr>
+        <%= render partial: "adverts/top_ads", object: @promotes %>
+     <tr><td colspan="5" class="top_ads" style="padding: 0px 0px">&nbsp;<a href="#"></a></td></tr>
+    <% end %>
+
+    <% unless @all_adverts.blank? %>
+
+      <%= render partial: "adverts/adverts", object: @all_adverts %>
+
+    <% end %>
+  </table>
+  <!--search result table end-->
+
+
+  <div class="paging-bar"><%= will_paginate @adverts %></div>
+
+
+</div>

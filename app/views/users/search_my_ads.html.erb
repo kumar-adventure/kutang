@@ -1,0 +1,54 @@
+<!--Terms of Use-->
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", my_profile_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
+
+<div class="heading">Search Result
+  <div class="ads-search" style="margin-top: -8px;">
+    <%= form_for :search, url: :search_my_ads, method: :get do |f| %>
+        <table align="right"><tr><td><%= f.text_field :text1, label: false, class: "input4" %></td><td><%= image_submit_tag("search-ads.jpg", align: "absmiddle", style: "width: 102px; height: 29px;") %></td></tr></table>
+    <% end %>
+  </div>
+</div>
+
+<div class="inner-page">
+  <table style="width:  100%;border-collapse:collapse; font-size: 12px;">
+    <tr style=" background-color: #F7941E;" >
+      <td style="width: 5%;"></td>
+      <td colspan="2" style="width: 30%;">Ad's Title</td>
+      <td style="width: 10%;">Price</td>
+      <td style="width: 10%;">Posted</td>
+      <td style="width: 10%;">Visits</td>
+      <td style="width: 10%;">On Page [?]</td>
+      <td style="width: 20%;">Options</td>
+    </tr>
+    <% if @adverts.present? %>
+        <% @adverts.each do |advert| %>
+            <tr>
+              <td></td>
+              <td style="width: 10%;"><%= image_tag((advert.photos.first).image(:thumb)) %></td>
+              <td style="width: 20%;"><span class="blue"><%= advert.title %></span> <br>Category : <span><%= advert.category.name %></span><br>Location : <span><%= advert.location.name %></span></td>
+              <td><%= advert.pricing_strategy == "Price" ? number_to_currency(advert.price) : advert.pricing_strategy == "Free" ? 'Free' : advert.pricing_strategy == "Please Contact" ? "Please Contact" : advert.pricing_strategy == "Swap/Trade" ? "Swap/Trade" : "No Cost"  %></td>
+              <td><%= advert.created_at.strftime("%e-%b-%y") %></td>
+              <td><%= advert.visits %></td>
+              <td> > <%= advert.id %></td>
+              <td><%= link_to "Edit", edit_advert_path(advert) %>&#160;&#160;|&#160;&#160;<%= link_to "Delete", advert, method: :delete, confirm: 'Are you sure ?' %></td>
+            </tr>
+        <% end %>
+    <% else  %>
+        <tr>
+          <td colspan="8" align="left">Sorry.. Result not found.</td>
+        </tr>
+    <% end %>
+  </table>
+  <div class="paging-bar"><%= will_paginate @adverts %></div> <br>
+</div>
+
+
+<!--Terms of Use end-->
+<!--right side end-->

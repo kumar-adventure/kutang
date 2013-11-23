@@ -1,0 +1,19 @@
+
+    <tr>
+      <td>
+        <div class="img"><%= link_to advert do %>
+              <%= advert.photos.present? ? image_tag((advert.photos.first).image(:medium), :width => '120', height: '82') : "No Image" %>
+          <% end %></div>
+      </td>
+      <td>
+        <h1><%= link_to advert.title,  advert %></h1>
+        <%= truncate(advert.description, length: 160) %>
+      </td>
+      <td style="text-align: center;">
+        <b><%= advert.pricing_strategy == "Price" ? number_to_currency(advert.price) : advert.pricing_strategy == "Free" ? 'Free' : advert.pricing_strategy == "Swap/Trade" ? "Swap/Trade" : "Please Contact"  %></b>
+      </td>
+      <td style="text-align: center;">
+        <p><%= distance_of_time_in_words_to_now advert.created_at %> ago<br><%= advert.location.name %></p>
+      </td>
+    </tr>
+

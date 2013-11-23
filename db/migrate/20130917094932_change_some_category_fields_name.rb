@@ -1,0 +1,69 @@
+class ChangeSomeCategoryFieldsName < ActiveRecord::Migration
+  def up
+    rename_column :categories, :phone, :ad_phone
+    rename_column :categories, :ad_type, :advert_type
+    rename_column :categories, :sale_by, :ad_sale_by
+    rename_column :categories, :job_type, :ad_job_type
+    rename_column :categories, :year, :ad_year
+    rename_column :categories, :kilometers, :ad_kilometers
+    rename_column :categories, :trim, :ad_trim
+    rename_column :categories, :body, :ad_body
+    rename_column :categories, :transmission, :ad_trans
+    rename_column :categories, :color, :ad_color
+    rename_column :categories, :drivetrain, :ad_drivetrain
+    rename_column :categories, :make, :ad_make
+    rename_column :categories, :model, :ad_model
+    rename_column :categories, :sale_type, :ad_sale_type
+    rename_column :categories, :event_date_from, :date_from
+    rename_column :categories, :event_date_to, :date_to
+    rename_column :categories, :event_time_from, :time_from
+    rename_column :categories, :event_time_to, :time_to
+    rename_column :categories, :gender, :sex
+    rename_column :categories, :carrier, :ad_carrier
+    rename_column :categories, :brand, :ad_brand
+    rename_column :categories, :diameter, :ad_diameter
+    rename_column :categories, :dob, :ad_dob
+    rename_column :categories, :address, :ad_address
+    rename_column :categories, :bedrooms, :ad_bedrooms
+    rename_column :categories, :bathrooms, :ad_bathrooms
+    rename_column :categories, :size, :ad_size
+    rename_column :categories, :furnished, :ad_furnished
+    rename_column :categories, :pet_friendly, :petfriendly
+    rename_column :categories, :sleeps, :ad_sleeps
+    rename_column :categories, :vacation_type, :ad_vacation
+  end
+
+  def down
+    rename_column :categories, :ad_phone, :phone
+    rename_column :categories, :advert_type, :ad_type
+    rename_column :categories, :ad_sale_by, :sale_by
+    rename_column :categories, :ad_job_type, :job_type
+    rename_column :categories, :ad_year, :year
+    rename_column :categories, :ad_kilometers, :kilometers
+    rename_column :categories, :ad_trim, :trim
+    rename_column :categories, :ad_body, :body
+    rename_column :categories, :ad_trans, :transmission
+    rename_column :categories, :ad_color, :color
+    rename_column :categories, :ad_drivetrain, :drivetrain
+    rename_column :categories, :ad_make, :make
+    rename_column :categories, :ad_model, :model
+    rename_column :categories, :ad_sale_type, :sale_type
+    rename_column :categories, :date_from, :event_date_from
+    rename_column :categories, :date_to, :event_date_to
+    rename_column :categories, :time_from, :event_time_from
+    rename_column :categories, :time_to, :event_time_to
+    rename_column :categories, :sex, :gender
+    rename_column :categories, :ad_carrier, :carrier
+    rename_column :categories, :ad_brand, :brand
+    rename_column :categories, :ad_diameter, :diameter
+    rename_column :categories, :ad_dob, :dob
+    rename_column :categories, :ad_address, :address
+    rename_column :categories, :ad_bedrooms, :bedrooms
+    rename_column :categories, :ad_bathrooms, :bathrooms
+    rename_column :categories, :ad_size, :size
+    rename_column :categories, :ad_furnished, :furnished
+    rename_column :categories, :petfriendly, :pet_friendly
+    rename_column :categories, :ad_sleeps, :sleeps
+    rename_column :categories, :ad_vacation, :vacation_type
+  end
+end

@@ -1,0 +1,479 @@
+<div class="heading" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Ad Detail</div>
+
+<div class="inner-page">
+
+  <div class="content">
+   <div style="margin: 5px 0px" >Selected Category > <b><%= @category.section.name  %></b> > <b><%= @category.name  %></b>&#160;<b><%= "> " +@subcategory.name if @subcategory.present?  %></b>&#160;&#160;<%= link_to "Change Category", categories_path, {class: "anchor"} %></div>
+    <% if @category.header_message.present? %>
+      <div class="form_gray_box" style="background-color: #EFEFEF" >
+        <%= @category.header_message.html_safe %>
+      </div><br>
+    <% end %>
+     <%= simple_form_for form_location, :html => { :multipart => true} do |f| %>
+        <% if @advert.errors.any? %>
+            <div id="error_explanation" style="border: 1px solid #D97A1E; width: 50%;" >
+              <h4 style="color: #fff;background-color: #D97A1E;margin-top: 0" > <%= pluralize(@advert.errors.count, 'error') %> prohibited this form being submitted:</h4>
+              <ul>
+                <% @advert.errors.full_messages.each do |msg| %>
+                    <li class="error"><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <div class="form_gray_box">
+        <table width="780" cellpadding="3" cellspacing="3" style="margin: 0 0 0 50px">
+        <tr>
+          <td width="150px"><span class="red">*</span> Required<br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <% if @category.ad_job_type.present?  %>
+            <tr>
+              <td><strong>Jobs Type<span class="red">*</span></strong></td>
+              <td><%= f.input :job_type, collection: [['Full-Time', 'Full-Time'], ['Part-Time', 'Part-Time'], ['Temporary', 'Temporary'], ['Contract', 'Contract']], as: :select, prompt: "--------------------------------", label: false, error: false %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.advert_type || (@subcategory.ad_type if @subcategory.present?) %>
+            <tr>
+              <td valign="top"><strong>Ad Type<span class="red">*</span></strong></td>
+              <td><%= f.input :ad_type, collection: [['I am offering', 'Offering']], as: :radio_buttons, label: false, checked: "Offering" %><div class="help" style="display: inline-block; margin-left: 30px">- You are offering a service</div><br>
+                <%= f.input :ad_type, collection: [['I want', 'Wanted']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 68px">- You want to find a service</div>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.pricing || (@subcategory.pricing if @subcategory.present?) %>
+            <tr>
+              <td valign="top"><strong>Price<span class="red">*</span></strong></td>
+              <td>
+                <%= f.input :pricing_strategy, label:false, as: :radio_buttons, collection: [['$','Price']], checked: "Price" %><%= f.input :price, :as => :string, label: false, input_html: {class: "input3"}, error: false %><br>
+                <% if @category.section.name != 'Real Estate' %><%= f.input :pricing_strategy, label:false, as: :radio_buttons, collection: [['Free','Free']] %><br><% end %>
+                <%= f.input :pricing_strategy, label:false, as: :radio_buttons, collection: [['Please Contact','Please Contact']] %><br>
+                <%= f.input :pricing_strategy, label:false, as: :radio_buttons, collection: [['Swap/Trade','Swap/Trade']] %>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_bedrooms.present?  %>
+            <tr>
+              <td valign="top"><strong>Bedrooms(#)</strong></td>
+              <td><%= f.input :bedrooms, as: :select, label: false, error: false, collection: [['Bachelor or studio', 'Bachelor or studio'],['1 bedroom', '1 bedroom'],['1 bedroom and den', '1 bedroom and den'],['2 bedrooms', '2 bedrooms'],['2 bedroom and den', '2 bedroom and den'],['3 bedrooms', '3 bedrooms'],['4 bedrooms', '4 bedrooms'],['5 bedrooms', '5 bedrooms'],['6 or more bedrooms', '6 or more bedrooms'],], prompt: '---------------' %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_bathrooms.present?  %>
+            <tr>
+              <td valign="top"><strong>Bathrooms(#)<span class="red">*</span></strong></td>
+              <td><%= f.input :bathrooms, as: :select, label: false, error: false, collection: [['1 bathroom', '1 bathroom'],['1.5 bathrooms', '1.5 bathrooms'],[' 2 bathrooms', '2 bathrooms'],['2.5 bathrooms', '2.5 bathrooms'],['3 bathrooms', '3 bathrooms'],['3.5 bathroom', '3.5 bathrooms'],['4 bathrooms', '4 bathrooms'],['4.5 bathrooms', '4.5 bathrooms'],['5 bathrooms', '5 bathrooms'],['5.5 bathrooms', '5.5 bathrooms'],['6 or more bathrooms', '6 or more bathrooms'],], prompt: '---------------' %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_size.present? %>
+            <tr>
+              <td valign="top"><strong>Size(sqft)</strong></td>
+              <td><%= f.input :size, label: false, error: false, input_html: {class: "input1"} %></td>
+            </tr>
+        <% end %>
+
+        <% if (@category.ad_sale_by && @category.section.name.casecmp("pets") == 0) || (@subcategory.sale_by if @subcategory.present?) %>
+            <tr>
+              <td><strong>Offered By<span class="red">*</span></strong></td>
+              <td><%= f.input :sale_by, collection: [['Registered Breeder', 'Registered Breeder'], ['Owner', 'Owner']], as: :select, prompt: "-------------------------------", label: false  %></td>
+            </tr>
+        <% elsif (@category.ad_sale_by && @category.section.name== "Real Estate") %>
+            <% if @category.rent.present? %>
+                <tr>
+                  <td valign="top"><strong>For Rent By<span class="red">*</span></strong></td>
+                  <td>
+                    <%= f.input :sale_by, collection: [['Owner', 'Owner']], as: :radio_buttons, label: false, checked: "Owner" %><div class="help" style="display: inline-block; margin-left: 30px">-  It's completely FREE to sell your own unit (max 3 rental ads)</div><br>
+                    <%= f.input :sale_by, collection: [['Real Estate Agent', 'Real Estate Agent']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 30px">-  It's completely FREE to sell your own unit (max 3 rental ads)</div>
+                    <%= f.input :sale_by, collection: [['Professional', 'Professional']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 30px">-  $29.99 listing fee for 31 days</div>
+                  </td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td valign="top"><strong>For Sale By<span class="red">*</span></strong></td>
+                  <td>
+                    <%= f.input :sale_by, collection: [['Owner', 'Owner']], as: :radio_buttons, label: false, checked: "Owner" %><div class="help" style="display: inline-block; margin-left: 30px">-  It's completely FREE to sell your own unit (max 3 rental ads)</div><br>
+                    <%= f.input :sale_by, collection: [['Real Estate Agent', 'Real Estate Agent']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 30px">-  It's completely FREE to sell your own unit (max 3 rental ads)</div>
+                    <%= f.input :sale_by, collection: [['Professional', 'Professional']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 30px">-  $29.99 listing fee for 31 days</div>
+                  </td>
+                </tr>
+            <% end %>
+        <% elsif (@category.ad_sale_by && !@category.section.name.include?("pets")) || (@subcategory.sale_by if @subcategory.present?) %>
+            <tr>
+              <td valign="top"><strong>For Sale By<span class="red">*</span></strong></td>
+              <td>
+                <%= f.input :sale_by, collection: [['Owner', 'Owner']], as: :radio_buttons, label: false, checked: "Owner" %><div class="help" style="display: inline-block; margin-left: 30px">- It's completely FREE to sell your own car (max 2 car ads)</div><br>
+                <%= f.input :sale_by, collection: [['Dealer', 'Dealer']], as: :radio_buttons, label: false %><div class="help" style="display: inline-block; margin-left: 30px">- $11.99 listing fee for 31 days</div>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_furnished.present? %>
+            <tr>
+              <td valign="top"><strong>Furnished<span class="red">*</span></strong></td>
+              <td>
+                <%= f.input :furnished, collection: [['Yes', 'Yes']], as: :radio_buttons, label: false %>
+                <%= f.input :furnished, collection: [['No', 'No']], as: :radio_buttons, label: false %>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.petfriendly.present? %>
+            <tr>
+              <td valign="top"><strong>Pet Friendly</strong></td>
+              <td>
+                <%= f.input :furnished, collection: [['Not specified', 'Not specified']], as: :radio_buttons, label: false, checked: "Not specified" %>
+                <%= f.input :furnished, collection: [['Yes', 'Yes']], as: :radio_buttons, label: false %>
+                <%= f.input :furnished, collection: [['No', 'No']], as: :radio_buttons, label: false %>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if (@category.ad_dob.present?)  %>
+            <tr>
+              <td><strong>Date of Birth<span class="red">*</span></strong></td>
+              <td><%= f.input :dob, as: :string, label: false, input_html: {class: 'input1'} %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.date_from || @category.date_to %>
+            <tr>
+              <td><strong>Event Date(s)<span class="red">*</span></strong></td>
+              <td>
+                <table>
+                  <tr>
+                    <td><%= f.input :event_date_from, as: :date, order: [:day, :month, :year], label: false %></td>
+                    <td>To </td>
+                    <td><%= f.input :event_date_to, as: :date, order: [:day, :month, :year], label: false %></td></tr>
+                </table>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.time_from || @category.time_to %>
+            <tr>
+              <td><strong>Event Time<span class="red">*</span></strong></td>
+              <td>
+                <table>
+                  <tr><td><%= f.input :event_time_from, label: false, time_separator: " " %></td>
+                    <td>To </td><td><%= f.input :event_time_to, label: false, time_separator: " " %></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.sex || (@subcategory.gender if @subcategory.present?) %>
+            <tr>
+              <td valign="top"><strong>Gender<span class="red">*</span></strong></td>
+              <td><%= f.input :gender, collection: [["Girl's", "Girl's"]], as: :radio_buttons, label: false, checked: "Girl's" %>
+                <%= f.input :gender, collection: [["Boy's", "Boy's"]], as: :radio_buttons, label: false %>
+                <%= f.input :gender, collection: [["Unisex", "Unisex"]], as: :radio_buttons, label: false %>
+              </td>
+            </tr>
+        <% end %>
+
+        <% if @category.frame || (@subcategory.frame if @subcategory.present?) %>
+            <tr>
+              <td><strong>Frame Size</strong></td>
+              <td><%= f.input :frame_size, as: :select, collection: [['XS', 'XS'],['S', 'S'],['M', 'M'],['L', 'L'],['XL', 'XL']], label: false, prompt: "----------" %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_brand || (@subcategory.brand if @subcategory.present?) %>
+            <tr>
+              <td><strong>Product Brand<span class="red">*</span></strong></td>
+              <td><%= f.input :brand, as: :select, collection: [['Apple', 'Apple'],['Blackberry', 'Blackberry'],['Ericsson', 'Ericsson'], ['HTC', 'HTC'], ['LG', 'LG'],['Motorola', 'Motorola'],['Nokia', 'Nokia'],['Samsung', 'Samsung'],['Sony', 'Sony'],['Sony Ericsson', 'Sony Ericsson'],['Other', 'Other']], label: false, prompt: "----------" %></td>
+            </tr>
+        <% end %>
+
+        <% if @category.ad_carrier || (@subcategory.carrier if @subcategory.present?) %>
+            <tr>
+              <td><strong>Carrier<span class="red">*</span></strong></td>
+              <td><%= f.input :carrier, as: :select, collection: [['Unlocked', 'Unlocked'],['7-Eleven SpeakOut Wireless', '7-Eleven SpeakOut Wireless'],['Bell', 'Bell'],['Chatr', 'Chatr'],['Fido', 'Fido'],['Koodo Mobile', 'Koodo Mobile'],['MiKe', 'MiKe'],['Mobilicity', 'Mobilicity'],['Rogers', 'Rogers'],['SaskTel', 'SaskTel'],['Telus', 'Telus'],['Videotron', 'Videotron'],['Virgin Mobile', 'Virgin Mobile'],['WIND', 'WIND'], ['Other', 'Other']], label: false, prompt: "----------" %></td>
+            </tr>
+        <% end %>
+
+          <tr>
+            <td colspan="2" >
+              <table>
+                <tr>
+                  <% if @category.ad_make || (@subcategory.make if @subcategory.present?) %>
+                    <td width="150"><strong>Make<span class="red">*</span></strong></td>
+                    <td><%= f.input :make, label: false, as: :select, collection: @makes, prompt: '---------------------' %></td>
+                  <% end %>
+                  <% if @category.ad_model || (@subcategory.model if @subcategory.present?) %>
+                    <td><strong>Model<span class="red">*</span></strong></td>
+                    <td><%= f.input :model, label: false, as: :select, prompt: '--------------------' %></td>
+                  <% end %>
+                  <% if @category.ad_trim %>
+                    <td><strong>Trim</strong></td>
+                    <td><%= f.input :trim, label: false, input_html: {class: "input4"} %></td>
+                  <% end %>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        <% if @category.ad_model && @category.ad_trim && @category.ad_year %>
+          <tr>
+            <td colspan="2" >
+              <table>
+                 <tr>
+                  <% if @category.ad_year %>
+                    <td width="150px"><strong>Year<span class="red">*</span></strong></td>
+                    <td><%= f.input :year, as: :string, label: false, error: false, input_html: {class: "input4"} %></td>
+                  <% end %>
+
+                  <% if @category.ad_kilometers %>
+                     <td><strong>Kilometers<span class="red">*</span></strong></td>
+                     <td><%= f.input :kilometers,as: :string, label: false, error: false, input_html: {class: "input4"} %></td>
+                  <% end %>
+                 </tr>
+                 <tr>
+                  <% if @category.ad_body %>
+                     <td><strong>Body Type<span class="red">*</span></strong></td>
+                     <td><%= f.input :body_type, label: false, as: :select, prompt: '------------------------', collection: [['Convertible', 'Convertible'], ['Coupe (2 door)', 'Coupe (2 door)'], ['Hatchback', 'Hatchback'], ['Pickup Truck', 'Pickup Truck'],['Sedan', 'Sedan'],['SUV, Crossover', 'SUV, Crossover'],['Minivan, Van','Minivan, Van'],['Wagon', 'Wagon'],['Others','Others'] ] %></td>
+                  <% end %>
+                  <% if @category.ad_trans %>
+                     <td><strong>Transmission</strong></td>
+                     <td><%= f.input :transmission, label: false, as: :select, prompt: '------------------------', collection: [['Manual', 'Manual'], ['Automatic', 'Automatic'], ['Other', 'Other'] ] %></td>
+                  <% end %>
+                 </tr>
+                 <tr>
+                  <% if @category.ad_color %>
+                     <td><strong>Color</strong></td>
+                     <td><%= f.input :color, label: false, as: :select, collection: [['Black', 'Black'], ['Blue', 'Blue'], ['Brown', 'Brown'],['Burgundy','Burgundy'],['Gold','Gold'],['Grey','Grey'],['Green','Green'],['Orange','Orange'],['Pink','Pink'],['Purple','Purple'],['Red','Red'],['Silver','Silver'],['Tan','Tan'],['Teal','Teal'],['White','White'],['Yellow','Yellow'],['Other','Other'] ], prompt: '-----------------' %></td>
+                  <% end %>
+
+                  <% if @category.ad_drivetrain %>
+                     <td><strong>Drivetrain</strong></td>
+                     <td><%= f.input :drivetrain, label: false, as: :select, collection: [['4 x 4', '4x4'], ['All-wheel drive (AWD)', 'All-wheel drive (AWD)'], ['Front-wheel drive (FWD)', 'Front-wheel drive (FWD)'],['Rear-wheel drive (RWD)','Rear-wheel drive (RWD)'],['Other','Other'] ], prompt: '-----------------' %></td>
+                  <% end %>
+                 </tr>
+                 <tr>
+
+                  <% if @category.ad_sale_type %>
+                   <td><strong>Type</strong></td>
+                   <td><%= f.input :vehicle_type, label: false, as: :select, collection: [['New', 'New'], ['Used', 'Used'], ['Lease', 'Lease'],['Damaged', 'Damaged']], prompt: '-----------' %></td>
+                  <% end %>
+
+                  <% if @category.fuel %>
+                   <td><strong>Fuel Type</strong></td>
+                   <td><%= f.input :fuel_type, label: false, as: :select, prompt: '------------------------', collection: [['Diesel', 'Diesel'], ['Gasoline', 'Gasoline'], ['Hybrid-Electric', 'Hybrid-Electric'],['Other', 'Other'] ], prompt: '--------------' %></td>
+                  <% end %>
+                 </tr>
+              </table>
+             </td>
+            </tr>
+          <% end %>
+
+          <% if (!@category.ad_trim && @category.ad_year) || (@subcategory.year if @subcategory.present?) %>
+            <tr>
+              <td><strong>Year<span class="red">*</span></strong></td>
+              <td><%= f.input :year, label: false, input_html: {class: "input1"} %></td>
+            </tr>
+          <% end %>
+
+          <% if !@category.ad_trim && @category.ad_kilometers || (@subcategory.kilometers if @subcategory.present?) %>
+            <tr>
+              <td><strong>Kilometers<span class="red">*</span></strong></td>
+              <td><%= f.input :kilometers, label: false, input_html: {class: "input1"} %></td>
+            </tr>
+          <% end %>
+
+            <% if @category.engine || (@subcategory.engine if @subcategory.present?) %>
+              <tr>
+                <td><strong>Engine Displacement (cc)</strong></td>
+                <td><%= f.input :engine_displacement, label: false, input_html: {class: "input1"} %></td>
+              </tr>
+            <% end %>
+
+            <% if (!@category.ad_trim && @category.ad_color) || (@subcategory.color if @subcategory.present?) %>
+              <tr>
+                <td><strong>Color</strong></td>
+                <td><%= f.input :color, label: false, as: :select, prompt: '------------------------', collection: [['Black', 'Black'], ['Blue', 'Blue'], ['Brown', 'Brown'],['Burgundy','Burgundy'],['Gold','Gold'],['Grey','Grey'],['Green','Green'],['Orange','Orange'],['Pink','Pink'],['Purple','Purple'],['Red','Red'],['Silver','Silver'],['Tan','Tan'],['Teal','Teal'],['White','White'],['Yellow','Yellow'],['Other','Other'] ] %></td>
+              </tr>
+            <% end %>
+
+            <% if @category.ad_diameter || (@subcategory.diameter if @subcategory.present?) %>
+              <tr>
+                <td width="155"><strong>Tire size (diameter)</strong></td>
+                <td><%= f.input :diameter, label: false, as: :select, collection: [['Not specified', 'Not specified'], [' 10 in.', ' 10 in.'], [' 12 in.', ' 12 in.'], [' 13 in.', ' 13 in.'], [' 14 in.', ' 14 in.'], [' 15 in.', ' 15 in.'], [' 16 in.', ' 16 in.'], [' 16.5 in.', ' 16.5 in.'], [' 17 in.', ' 17 in.'], [' 18 in.', ' 18 in.'], [' 19 in.', ' 19 in.'], [' 19.5 in.', ' 19.5 in.'], [' 21 in.', ' 21 in.'], [' 22 in.', ' 22 in.'], [' 23 in.', ' 24 in.'], [' 26 in.', ' 26 in.'], [' 28 in.', ' 28 in.'], [' 30 in.', ' 30 in.'] ], prompt: '------------------------' %></td>
+              </tr>
+            <% end %>
+
+            <tr id="stock" style="display: none">
+              <td><strong>Stock</strong></td>
+              <td><%= f.input :stock, error:false,label:false, input_html: {class: "input1"} %></td>
+            </tr>
+            <tr>
+              <td><strong>Ad Title<span class="red"> *</span></strong></td>
+              <td><%= f.input :title, error:false, label:false, input_html: {class: "input1"} %></td>
+            </tr>
+
+            <% if @category.urgent.present? %>
+                <tr>
+                  <td></td>
+                  <td><%= f.input :urgent, as: :boolean, error:false, label:false %> <%= image_tag("urgent_ad.jpg", align: "absmiddle") %> 7 days - <%= number_to_currency(@category.urgent_amount) %></td>
+                </tr>
+            <% end %>
+
+            <tr>
+              <td valign="top"><strong>Description<span class="red"> *</span></strong></td>
+              <td> <div class="help"> Let buyers know you want to sell quickly</div><%= f.input :description, as: :text, error: false , label: false, input_html: {class: "textarea1"} %></td>
+            </tr>
+            <% if @category.website %>
+              <tr>
+                <td  valign="top"><strong>Website URL</strong></td>
+                <td><%= f.input :website, error:false,label:false, class: "input1", input_html: {class: "input1"} %><div class="help">Link to your website for $5.00 </div></td>
+              </tr>
+            <% end %>
+
+            <%= f.fields_for :photos  do |p| %>
+                <tr>
+                  <td valign="top"><strong>Images</strong></td>
+                  <td>
+                    <div id="image-file" class="btn btn-success fileinput-button">
+                        <span>Add Files..</span>
+                        <%= p.file_field :image, class: "image_file" %>
+                    </div>
+                    <div><strong>Get at least twice the number of replies by uploading pictures.</strong></div>
+                    <div class="help">Max 8 images. File size can be 10 MB per image with max dimension 6000x4000. For bitmap(*.bmp) images, max file size is 4MB.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td><td id="image-viewer"></td>
+                </tr>
+            <% end %>
+            <tr>
+              <td valign="top"><strong>Email</strong><span class="red">*</span></td>
+              <td><%= f.input :email, error:false,label:false, input_html: {class: "input1"} %><span class="help">Your email address will not be shared with others</span></td>
+            </tr>
+
+            <% if @category.ad_phone.present? %>
+                <tr>
+                  <td valign="top"><strong>Phone</strong></td>
+                  <td><%= f.input :phone, error:false,label:false, input_html: {class: "input1"} %><div class="help">Optional. If you enter your phone number above, it will show up on your Ad.</div></td>
+                </tr>
+            <% end %>
+            <tr>
+              <td valign="top"><strong>Location <span class="red">*</span></strong></td>
+              <td><%= f.input :location_id, as: :select,label: false , collection: [[Location.find(session[:current_location]).name, session[:current_location]]], selected: session[:current_location], input_html: {class: "select"} %>
+                <div class="help">Please select your location or the one nearest you.</div>
+              </td>
+            </tr>
+            <% if @category.ad_address %>
+                <tr>
+                  <td valign="top"><strong>Address</strong><span class="red">*</span></td>
+                  <td><%= f.input :address, error:false,label:false, input_html: {class: "input1"} %><div class="help">Enter your postal code and/or street address above.</div></td>
+                </tr>
+            <% end %>
+            </table>
+        </div><br>
+        <% if @category.carproof %>
+            <div class="form_gray_box">
+              <div style="background-color: #E9E9E9; padding: 4px 10px; margin: 0"><b>CarProof</b> - Include the car's vehicle history report with your listing <a href="#">(Learn more)</a></div>
+              <table width="705" cellpadding="3" cellspacing="3"  style="margin: 0 0 0 20px">
+                <tr>
+                  <td width="100px"></td>
+                  <td  width="20px"><input type="radio" name="carproof" id="purchase_carproof" class="carproof"/></td>
+                  <td>I would like to purchase a CarProof report for $34.95 and include it with my listing. </td>
+                </tr>
+                <tr id="vin" style="display: none">
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div style="display: inline-block;">My VIN is</div> <%= f.input :vin, label: false, error: false, input_html:{class: "input1"} %>
+                    <div style="font-size: 10px; font-style: italic;width: 90%">* Please note that once the order is confirmed, this purchase is not refundable. You can choose to exclude the report at any time by editing your ad.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td><input type="radio" name="carproof"  id="already_carproof" class="carproof"/></td>
+                  <td>I already have a CarProof report. Please include it with my listing.</td>
+                </tr>
+                <tr id="url" style="display: none">
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div style="display: inline-block;">Here's the URL for my report </div><%= f.input :report_url, label: false, error: false, input_html:{class: "input1"} %>
+                    <div style="font-size: 10px; font-style: italic;width: 90%">* It is highly recommended that you make sure there is no personally identifiable information in the report before including it.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td><input type="radio" name="carproof" id="no_carproof" class="carproof" checked="checked"/></td>
+                  <td>I do not want to include a CarProof report with my listing. </td>
+                </tr>
+              </table>
+            </div><br>
+        <% end %>
+        <% if @category.promote && !@advert.id %>
+            <%= f.fields_for :promotes do |p|  %>
+                <div class="form_gray_box">
+                  <div style="background-color: #E9E9E9; padding: 4px 10px; margin: 0"><strong>Promote My Ad (Optional)</strong></div>
+                  <table>
+                    <tr>
+                      <td colspan="2">
+                        <table width="100%" cellpadding="3" cellspacing="3" style="margin: 0 0 0 25px">
+                          <% if @category.highlight_price.present? %>
+                              <tr>
+                                <td width="10"><%= p.check_box :highlight_ad, label: false %></td>
+                                <td> Highlight Ad &#160;<a href="#">(Learn More)</a></td>
+                                <td>7 Days</td>
+                                <td><%= p.input :highlight_amount, as: :hidden, label: false, input_html: {value: @category.gallery_amount} %><%= number_to_currency(@category.highlight_price) %></td>
+                              </tr>
+                              <tr>
+                                <td colspan="4" style="background-color:#efefef;">Highlight your ad to stand out from the crowd</td>
+                              </tr>
+                          <% end %>
+                          <tr>
+                            <td width="10"><%= p.input :top_ad, label: false %></td>
+                            <td id="ad_amount"> Top Ad <a href="#">(Learn More)</a></td>
+                            <td><%= p.input :top_ad_days, as: :select, collection: [['7 Days', 7], ['3 Days', 3]], selected: true, label: false  %> </td>
+                            <td><%= p.input :top_ad_amount, as: :hidden, input_html: { value: @category.top_ad7} %> <span class="top_ad_amount"><%= number_to_currency(@category.top_ad7) %></span></td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" style="background-color:#efefef;">Reach more people by having your Ad in the top section of its category for a week.</td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" style="border-bottom: 1px solid #666666;"></td>
+                          </tr>
+                          <tr>
+                            <td width="10"><%= p.input :gallery, label: false %></td>
+                            <td> Homepage Gallery <a href="#">(Learn More)</a></td>
+                            <td>7 Days</td>
+                            <td><%= p.input :gallery_amount, as: :hidden,  input_html: {value: @category.gallery_amount} %><%= number_to_currency(@category.gallery_amount) %></td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" style="background-color:#efefef;">Have your Ad be seen on the Kantgaza homepage by thousands of people every day for a week.</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div><br>
+            <% end %>
+        <% end %>
+
+        <% if @category.footer_message.present? %>
+            <div class="form_gray_box" style="padding: 5px 10px;">
+              <%= @category.footer_message.html_safe %>
+            </div><br>
+        <% end %>
+
+        <div><%= f.input :accept, label: false, input_html: {style: "float: left;margin-left: 10px;"} %> Check to indicate you are agree to our <%= link_to "terms of use", terms_of_use_path %> and <%= link_to "privacy policy", privacy_policy_path %><br>
+          &#160;&#160; Please do not post duplicate ads. Use 'Promote My Ad' above to gain more replies.</div>
+        </div>
+
+        <div class="form_gray_box">
+          <%= image_submit_tag("post-ad.jpg", align: "absmiddle", style: "width: 75px; height: 26px; margin: 10px") %></td>
+        </div><br>
+    <% end %>
+  </div>
+</div>
+<!--Ad Detail end-->
+
+

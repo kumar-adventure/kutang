@@ -1,0 +1,37 @@
+<h1>Order Details</h1><br>
+<table>
+  <tr>
+    <td><strong>E-mail : </strong><%= @order.user.email %></td>
+    <td><strong>User Name : </strong><%= @order.user.name %></td>
+    <td><strong>Address : </strong><%= @order.user.address %></td>
+    <td><strong>Order Date-Time : </strong><%= @order.created_at.strftime("%e-%B-%Y") %>, <%= @order.created_at.strftime("%I:%M") %></td>
+  </tr>
+</table>     <br>
+<table style="margin: 0 auto; height: auto;text-align: center; border: 1px inset #666666;">
+  <tr height="25">
+    <th>Ad Title</th>
+    <th>Bump Up Amount</th>
+    <th>Urgent Ad Amount</th>
+    <th>Homepage Gallery Amount</th>
+    <th>Top Ad Amount</th>
+    <th>Subtotal</th>
+  </tr>
+  <% @order.line_items.each do |item| %>
+      <tr height = "20">
+        <td style="padding-left: 10px;text-align: left;width: 50%;"><b><%= item.advert.title %></b></td>
+        <td style="text-align: center;"><%= number_to_currency(item.advert_bump_up) if item.advert_bump_up.nonzero?   %></td>
+        <td style="text-align: center;"><%= number_to_currency(item.advert_urgent_ad) if item.advert_urgent_ad.nonzero?   %></td>
+        <td style="text-align: center;"><%= number_to_currency(item.advert_homepage_gallery) if item.advert_homepage_gallery.nonzero?   %></td>
+        <td style="text-align: center;"><%= number_to_currency(item.advert_top_ad) if item.advert_top_ad.nonzero?   %></td>
+        <td style="text-align: center;font-weight: bold"><%= number_to_currency(item.total_price)  %></td>
+      </tr>
+  <% end %>
+  <tr height="25">
+    <td colspan="5"></td>
+    <td align='left'><b>Total : <%= number_to_currency(@order.total_price) %></b></td>
+  </tr>
+</table>
+
+
+
+<%= link_to 'Back', admin_orders_url %>

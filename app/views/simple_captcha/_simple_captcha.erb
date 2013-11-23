@@ -1,0 +1,37 @@
+<style type="text/CSS">
+
+
+  .simple_captcha .simple_captcha_field,
+  .simple_captcha .simple_captcha_image{
+    width: 110px;
+    padding: 0px 2px;
+    margin-left: 10px;
+    float: left;
+
+  }
+  .simple_captcha .simple_captcha_image img{
+    margin-left: 10px;
+    width: 90px;
+    padding: 0px;
+  }
+  .simple_captcha .simple_captcha_label{font-size: 12px;}
+  .simple_captcha .simple_captcha_field input{
+    width: 100px;
+    font-size: 13px;
+
+
+  }
+</style>
+
+<div class='simple_captcha'>
+
+  <div class='simple_captcha_field'>
+    <%= simple_captcha_options[:field] %>
+  </div>
+
+  <div class='simple_captcha_image'>
+    <%= simple_captcha_options[:image] %>
+  </div>
+
+
+</div>

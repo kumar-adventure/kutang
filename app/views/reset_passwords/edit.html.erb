@@ -1,0 +1,17 @@
+<div class="heading">Enter New Password</div>
+<div class="inner-page" >
+  <table style="width: 40%;" >
+    <tr><td>Hi <%= @user.email %></td></tr>
+    <tr><td>Please enter a new password below.</td></tr>
+    <%= form_for @user, url: :reset_password, method: "PUT" do |f| %>
+        <tr height="30"><td><strong>New password (at least 6 characters)</strong></td></tr>
+        <tr height="40"><td><%= f.password_field :password, class: "input1" %></td></tr>
+        <tr height="30"><td><strong>Re-type new password</strong></td></tr>
+        <tr height="40"><td><%= f.password_field :password_confirmation, class: "input1" %></td></tr>
+        <tr height="40"><td><%= image_submit_tag("change-password.jpg") %></td></tr>
+    <% end %>
+  </table>
+  <br><br><br><br>
+
+
+</div>

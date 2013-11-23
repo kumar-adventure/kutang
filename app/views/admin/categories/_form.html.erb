@@ -1,0 +1,132 @@
+<br><%= simple_form_for [:admin,@category] do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="admin-form">
+      <table>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td>Section</td>
+          <td><%= f.association :section, label: false %></td>
+        </tr>
+        <tr>
+          <td><%= f.label "For Rent" %></td>
+          <td><%= f.check_box :rent %></td>
+        </tr>
+        <tr>
+          <td>Urgent Ads Amount</td>
+          <td><%= f.text_field :urgent_amount %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :highlight_price %></td>
+          <td><%= f.text_field :highlight_price %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :top_ad3 %></td>
+          <td><%= f.text_field :top_ad3 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :top_ad7 %></td>
+          <td><%= f.text_field :top_ad7 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :gallery_amount %></td>
+          <td><%= f.text_field :gallery_amount %></td>
+        </tr>
+      </table>
+    </div><br>
+    <h4>Enter messages/notifications at top of the form if any ?</h4><br>
+      <%= f.input :header_message, as: :ckeditor, label: false, :input_html => { :ckeditor => {toolbar: 'custom', :width => 800 } } %><br>
+    <h4>Select Category Form Fields :</h4>
+    <div class="admin-form-fields">
+      <table cellpadding="3" cellspacing="3">
+        <tr height="50px;">
+          <td width="170px;"><%= f.check_box :advert_type %> :Ad Type</td>
+          <td width="170px;"><%= f.check_box :ad_job_type %> :Job Type</td>
+          <td width="170px;"><%= f.check_box :pricing %> :Price</td>
+          <td width="170px;"><%= f.check_box :ad_sale_by %> :For Sale By</td>
+          <td width="170px;"><%= f.check_box :sex%> :Gender</td>
+          <td width="170px;"><%= f.check_box :ad_address %> :Address</td>
+        </tr>
+        <tr height="50px;">
+          <td><%= f.check_box :ad_phone %> :Phone</td>
+          <td><%= f.check_box :website %> :Website URL</td>
+          <td><%= f.check_box :ad_year %> :Year</td>
+          <td><%= f.check_box :ad_color %> :Color</td>
+          <td><%= f.check_box :ad_make %> :Make</td>
+          <td><%= f.check_box :ad_model %> :Model</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :ad_trim %> :Trim</td>
+          <td><%= f.check_box :ad_body%> :Body Type</td>
+          <td><%= f.check_box :fuel %> :Fuel Type</td>
+          <td><%= f.check_box :ad_trans %> :Transmission</td>
+          <td><%= f.check_box :ad_kilometers %> :Kilometers</td>
+          <td><%= f.check_box :ad_sale_type %> :Sale Type</td>
+        </tr>
+        <tr height="50px;">
+          <td><%= f.check_box :ad_drivetrain %> :Drivetrain</td>
+          <td><%= f.check_box :engine %> :Engine Displacement</td>
+          <td><%= f.check_box :date_from%> :Event Date From</td>
+          <td><%= f.check_box :date_to %> :Event Date To</td>
+          <td><%= f.check_box :time_from %> :Event Time From</td>
+          <td><%= f.check_box :time_to %> :Event Time To</td>
+        </tr>
+        <tr height="50px;">
+          <td><%= f.check_box :carproof %> :Car Proof</td>
+          <td><%= f.check_box :frame %> :Frame Size</td>
+          <td><%= f.check_box :ad_brand %> :Brand</td>
+          <td><%= f.check_box :ad_carrier %> :Carrier</td>
+          <td><%= f.check_box :ad_diameter %> :Diameter</td>
+          <td><%= f.check_box :ad_dob %> :Date of Birth: </td>
+        </tr>
+        <tr>
+          <td colspan="6"><strong>Real State Fields</strong></td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :ad_bedrooms %> :Bedrooms</td>
+          <td><%= f.check_box :ad_bathrooms %> :Bathrooms</td>
+          <td><%= f.check_box :ad_size %> :Size</td>
+          <td><%= f.check_box :ad_furnished %> :Furnished</td>
+          <td><%= f.check_box :petfriendly %> :Pet Friendly</td>
+          <td><%= f.check_box :ad_sleeps %> :Sleeps</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :ad_vacation %> :Vacation Type</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div><br>
+    <div class="admin-form-fields">
+      <table>
+        <tr>
+          <td width="170"><%= f.check_box :promote %> :Promote Ad</td>
+          <td width="170"><%= f.check_box :urgent %> :Urgent Ad</td>
+          <td width="170"></td>
+          <td width="170"></td>
+          <td width="170"></td>
+          <td width="170"></td>
+        </tr>
+      </table>
+    </div><br>
+    <h4>Enter messages/notifications at bottom of the form if any ?</h4><br>
+    <%= f.input :footer_message, as: :ckeditor, label: false, :input_html => { :ckeditor => {toolbar: 'custom', :width => 800 } } %><br>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

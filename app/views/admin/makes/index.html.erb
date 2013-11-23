@@ -1,0 +1,25 @@
+<h1>Listing makes</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @makes.each do |make| %>
+  <tr>
+    <td><%= make.title %></td>
+    <td><%= make.category.name %></td>
+    <td><%= link_to 'Show', [:admin, make] %></td>
+    <td><%= link_to 'Edit', edit_admin_make_path(make) %></td>
+    <td><%= link_to 'Destroy', [:admin, make], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Make', new_admin_make_path %>

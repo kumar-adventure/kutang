@@ -1,0 +1,61 @@
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", my_profile_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
+
+<div class="heading">My Profile</div>
+
+<div class="inner-page">
+  Please enter your contact information. this will be used in your ads and by Kutangaza should we need to contact you.
+  <%= simple_form_for @user do |f| %>
+      <% if @user.errors.any? %>
+          <div id="error_explanation" style="border: 1px solid #D97A1E; width: 50%;" >
+            <h4 style="color: #fff;background-color: #D97A1E;margin-top: 0" > <%= pluralize(@user.errors.count, 'error') %> prohibited this form being submitted:</h4>
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                  <li class="error"><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+   <span style="color: green; font-weight: bold;">Account Details</span>
+   <div class="my_profile">
+    <table>
+      <tr>
+        <td><span style="font-weight:bold;">Nickname</span><%= f.input :nickname, error: :false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr>
+        <td><span style="font-weight:bold;">Email address</span><%= f.input :email, error: false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr height="40px">
+        <td><span style="font-weight:bold;">Password : **********</span>&nbsp;&nbsp; <%= link_to "Change", change_password_path %></td>
+      </tr>
+    </table>
+   </div>
+   <span style="color: green; font-weight: bold;">Contact Details</span>
+   <div class="my_profile">
+    <table>
+      <tr>
+        <td><span style="font-weight:bold;">Contact Person (optional)</span><%= f.input :contact_person, error: :false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr>
+       <td><span style="font-weight:bold;">Address (optional)</span><%= f.input :address, error: false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr>
+        <td><span style="font-weight:bold;">Phone Number (optional)</span><%= f.input :phone, error: :false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr>
+        <td><span style="font-weight:bold;">Skype ID (optional)</span><%= f.input :skype_id, error: false, label: false, input_html: {class: "input1"} %></td>
+      </tr>
+      <tr height="35px">
+        <td><%= image_submit_tag("update-profile.jpg", align: "absmiddle", style: "width: 99px; height: 29px;") %></td>
+      </tr>
+    </table>
+   </div>
+  <% end %>
+ <br><br>
+</div>

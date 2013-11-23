@@ -1,0 +1,51 @@
+<h1>Listing adverts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Featured</th>
+    <th>Approved</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>Location</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>Website</th>
+    <th>Pricing strategy</th>
+    <th>Posted Date</th>
+    <th>Expire Date</th>
+    <th>Visits</th>
+    <th>Expire</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @adverts.each do |advert| %>
+      <tr>
+        <td><%= advert.title %></td>
+        <td><%= advert.featured %></td>
+        <td><%= advert.approved %></td>
+        <td><%= advert.price %></td>
+        <td><%= advert.category.name %></td>
+        <td><%= advert.location.name %></td>
+        <td><%= advert.phone %></td>
+        <td><%= advert.email %></td>
+        <td><%= advert.address %></td>
+        <td><%= advert.website %></td>
+        <td><%= advert.pricing_strategy %></td>
+        <td><%= advert.created_at.strftime("%a, %e %b %Y %H:%M:%S") %></td>
+        <td><%= advert.expire_date.strftime("%a, %e %b %Y %H:%M:%S") if advert.expire_date %></td>
+        <td><%= advert.visits %></td>
+        <td><%= advert.expire %></td>
+        <td><%= link_to 'Show', [:admin, advert] %></td>
+        <td><%= link_to 'Edit', edit_admin_advert_path(advert) %></td>
+        <td><%= link_to 'Destroy', [:admin, advert], method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Advert', new_admin_advert_path %>

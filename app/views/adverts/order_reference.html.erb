@@ -1,0 +1,28 @@
+<div class="inner-page">
+  <table style="width:  100%; border-collapse:collapse; font-size: 12px;">
+    <tr style=" background-color: #F7941E;font-weight: bold" >
+      <td colspan="2" width="40%" style="text-align: center"><%= @advert.line_items.many? ? 'Ads' : 'Ad' %> Title</td>
+      <td width="10%" style=" text-align: center;">Order For</td>
+      <td width="10%" style=" text-align: center;">Order Date</td>
+      <td width="14%" style=" text-align: center;">Valid Till</td>
+      <td width="10%" style=" text-align: center;">Subtotal</td>
+    </tr>
+    <% @advert.line_items.each do |item| %>
+        <tr>
+          <td width="5%" style=" text-align: center;"><%= item.advert.photos.present? ? image_tag((item.advert.photos.first).image(:thumb)) : 'Image not available.' %></td>
+          <td width="40%" style="padding-left: 10px;"><b><%= item.advert.title %></b></td>
+          <td style=" text-align: center;">
+            <%= 'Bump Up Ads, ' if item.advert_bump_up.nonzero? %>
+            <%= 'Urgent Ads, ' if item.advert_urgent_ad.nonzero?   %>
+            <%= 'Homepage Gallery, ' if item.advert_homepage_gallery.nonzero? %>
+            <%= 'Top Ads.' if item.advert_top_ad.nonzero? %>
+          </td>
+          <td style=" text-align: center;"><%= item.order.created_at.strftime("%e-%b-%Y") %></td>
+          <td style=" text-align: center;"><%= (item.order.created_at.to_date + 7.days).strftime("%e-%b-%Y") %></td>
+          <td style=" text-align: center;font-weight: bold"><%= number_to_currency(item.total_price) %></td>
+        </tr>
+    <% end %>
+  </table>
+  <div class="paging-bar" style="width: 99%; color: #000; text-align: right">Grand Total : <%= number_to_currency(@advert.line_items.to_a.sum {|item| item.total_price}) %></div>
+
+</div><br><br>

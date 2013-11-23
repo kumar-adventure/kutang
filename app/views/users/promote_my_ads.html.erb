@@ -1,0 +1,157 @@
+<!--Terms of Use-->
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", my_profile_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
+
+<div class="heading">Promote My Ads</div>
+
+<div class="inner-page">
+
+  <div class="myadd-bar">
+    <strong>Promote My Ads</strong>
+  </div>
+  <br>
+  <div class="big_gray_box">
+    <% if current_user.promotes.present? %>
+      <div class="gallery" style="float: none; margin-bottom: 0;">
+        <div class="inner">
+
+          <table width="100%" border="0" cellspacing="0">
+            <tr>
+              <td>
+                <a id="prev" href="#"><span class="arrow-left sprite"></span></a>
+              </td>
+              <td>
+                <div class="list_carousel" >
+                  <div class="caroufredsel_wrapper" >
+                    <ul id="foo3">
+                      <% current_user.adverts.approved.each do |advert| %>
+                        <% if advert.homepage_ads.present? %>
+                          <li style="width: 70px; height: 80px; padding: 0 5px;">
+                            <%= link_to advert do %> <%= advert.photos.present? ? image_tag((advert.photos.first).image(:thumb)) : "Image not available." %><br/><%= truncate((advert.title),length: 20) %><% end %>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td><a id="next" href="#"><span class="arrow-right sprite"></span></a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    <% end %>
+    <span style="font-weight:bold;">Homepage Gallery</span><br>
+    <span class="grayInfo">Do you know you can reach more people by building your own web page on<br> Kutangaza Home Ad.</span><br>
+    <a href="#">Learn more</a>
+  </div><br>
+  <div class="big_gray_box">
+    <span style="font-weight:bold;">Build your Website in a minute</span><br>
+    <span class="grayInfo">Do you need a personal or official website? You can build your website at no cost.</span><br>
+  </div>
+  <br>Promote Ads helps you easily expose your Ads to more people, getting you more response.
+
+  <br>Get started now by posting an Ad.<br>
+
+  <table style="width:  100%;border-collapse:collapse; font-size: 12px;">
+    <tr style=" background-color: #F7941E;font-weight: bold" >
+     <td colspan="2" width="47%" style=" text-align: center;">My Ads</td>
+     <td width="20%" style=" text-align: center;">On Page[?]</td>
+     <td width="8%" style=" text-align: center;">Bump Up</td>
+     <td width="8%" style=" text-align: center;">Urgent Ad</td>
+     <td width="9%" style=" text-align: center;">Homepage Gallery</td>
+     <td width="8%" style=" text-align: center;">Top Ad</td>
+    </tr>
+  </table>
+  <div id="line_item_form">
+    <% if current_user.adverts.approved.present? %>
+      <% current_user.adverts.approved.each do |advert| %>
+         <%= form_for set_form_value(advert) do |f| %>
+           <input type="hidden" name="advert" value="<%= advert.id %>" >
+           <table id="promote_my_ad" style="width:  100%;border-collapse:collapse; font-size: 12px;">
+             <tr>
+               <td width="5%" style=" text-align: center;"><%= advert.photos.present? ? image_tag((advert.photos.first).image(:thumb)) : 'Image not available.' %></td>
+               <td style="padding-left: 10px;"><b><%= link_to advert.title, advert %></b>
+                 <br><%= link_to Category.find(advert.category_id).section.name, section_path(Category.find(advert.category_id).section.name) %> > <span class="blue"><%= link_to advert.category.name, category_path(advert.category) %>
+                 <% if advert.subcategory_id.present? %> > <%= link_to advert.subcategory.name, subcategory_path(advert.subcategory.name) %> <% end %></span>
+                 <br>Location : <span class="blue"><%= advert.location.name %></span></td>
+               <td width="20%" style=" text-align: center;"> > <%= advert.id   %></td>
+
+               <td width="8%" align='center'>
+                 <% unless advert.bump_up_ads.present? %>
+                     <div class="pay-ads">
+                       <%= set_form_value(advert).advert_bump_up.nonzero? ? (check_box_tag "bump", 1, checked='checked') : (check_box_tag "bump") %>
+                       $<span>2.99</span>
+                       <%= f.hidden_field :advert_bump_up, value: 2.99 %>
+                     </div>
+                 <% else %>
+                   <b>Paid</b>
+                 <% end %>
+               </td>
+
+               <td width="8%" align='center'>
+                 <% if advert.urgent.present? %>
+                   <% unless advert.urgent_ads.present? %>
+                     <div class="pay-ads">
+                       <%= set_form_value(advert).advert_urgent_ad.nonzero? ? (check_box_tag "urgent", 1, checked='checked') : (check_box_tag "urgent") %>
+                       $<span><%= (advert.category.urgent_amount) %></span>
+                       <%= f.hidden_field :advert_urgent_ad, value: advert.category.urgent_amount %>
+                     </div>
+                   <% else %>
+                       <b>Paid</b>
+                   <% end %>
+                 <% end %>
+               </td>
+
+               <td width="9%" align='center'>
+                 <% if advert.promotes.present? && advert.promotes.last.gallery.present?  %>
+                   <% unless advert.homepage_ads.present? %>
+                     <div class="pay-ads">
+                       <%= set_form_value(advert).advert_homepage_gallery.nonzero? ? (check_box_tag "homepage", 1, checked='checked') : (check_box_tag "homepage") %>
+                       $<span><%= advert.promotes.last.gallery_amount %></span>
+                       <%= f.hidden_field :advert_homepage_gallery, value: advert.promotes.last.gallery_amount %>
+                     </div>
+                   <% else %>
+                      <b>Paid</b>
+                   <% end %>
+                 <% end %>
+               </td>
+
+               <td width="8%" align='center'>
+                 <% if advert.promotes.last.top_ad.present?  %>
+                   <% unless advert.top_ad.present? %>
+                     <div class="pay-ads">
+                       <%= set_form_value(advert).advert_top_ad.nonzero? ? (check_box_tag "top_ad", 1, checked='checked') : (check_box_tag "top_ad") %>
+                       $<span><%= advert.promotes.last.top_ad_amount %></span>
+                       <%= f.hidden_field :advert_top_ad, value: advert.promotes.last.top_ad_amount %>
+                     </div>
+                   <% else %>
+                     <b>Paid</b>
+                   <% end %>
+                 <% end %>
+               </td>
+              </tr>
+             <tr><td colspan="7" style="border-bottom: 1px solid #ccc; margin: 0; padding: 0; "></td></tr>
+           </table>
+         <% end %>
+      <% end %>
+    <% end %>
+  </div>
+    <div class="paging-bar" style="width: 99%; color: #000;">Total : <%= number_to_currency(current_cart.total_price) %></div>
+    <div class="form_gray_box" style="width: 100%;" >
+      <%= link_to_order if current_cart.total_price.nonzero? %>
+    </div>
+
+    <br>
+
+</div>
+
+
+<!--Terms of Use end-->
+<!--right side end-->

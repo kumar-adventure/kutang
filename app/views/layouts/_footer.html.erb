@@ -1,0 +1,26 @@
+<!--footer-->
+<footer>
+  <div class="links">
+    <div class="linksleft">Country: <%#= image_tag("liberia-flag.jpg", align: "absmiddle") %> <strong>Liberia</strong>
+    </div>
+    <div class="linksright"><%= image_tag("facebook-icon.jpg", align: "absmiddle") %> Friend us on
+      Facebook &nbsp;&nbsp;&nbsp;<%= image_tag("youtube.jpg", align: "absmiddle") %> Watch us on YouTube
+    </div>
+  </div>
+  <div class="list">
+    <ul>
+      <li><%= active_link_to "About Us", about_path %></li>
+      <li><%= active_link_to "Contact Us", new_contact_path %></li>
+      <li><%= active_link_to "Privacy Policy", privacy_policy_path %></li>
+      <li><%= active_link_to "Terms of Use", terms_of_use_path %></li>
+      <li><%= active_link_to "Program Policy", program_policy_path %></li>
+      <li><%= active_link_to "Safety Tips", user_safety_path %></li>
+      <li><%= active_link_to "Help", help_path %></li>
+    </ul>
+  </div>
+  <div class="copyright">
+    <div class="left">Site Designed By <a href="http://www.cmisoft.in" target="_blank">CMISOFT</a></div>
+    <div class="left" align="right">Copyright &copy; 2012 Kutangaza. All rights reserved.</div>
+  </div>
+</footer>
+<!--footer end-->

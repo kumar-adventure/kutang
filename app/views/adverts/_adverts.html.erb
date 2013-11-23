@@ -1,0 +1,37 @@
+<% @all_adverts.each do |advert| %>
+<tr>
+  <td colspan="5">
+    <div id="ads-div">
+      <%= link_to advert do %>
+      <table width="100%" cellpadding="5" cellspacing="0" >
+        <tr>
+          <% if advert.urgent_ads.present? %>
+              <td class="urgent">
+
+              </td>
+          <% else %>
+              <td style="width: 50px;"></td>
+          <% end %>
+          <td valign="top" style="width: 110px;">
+            <div class="img" ><%= link_to advert do %>
+                  <%= advert.photos.present? ? image_tag((advert.photos.first).image(:medium), :width => '120', height: '82') : "No Image" %>
+              <% end %></div>
+          </td>
+          <td valign="top" style="width: 600px;">
+            <h1><%= link_to advert.title,  advert %></h1>
+            <%= truncate(advert.description, length: 160) %>
+          </td>
+          <td valign="top" style="width: 120px;">
+            <b><%= advert.pricing_strategy == "Price" ? number_to_currency(advert.price) : advert.pricing_strategy == "Free" ? 'Free' : advert.pricing_strategy == "Swap/Trade" ? "Swap/Trade" : "Please Contact"  %></b>
+          </td>
+          <td valign="top" style="width: 120px;">
+            <%= distance_of_time_in_words_to_now advert.created_at %> ago<br><%= advert.location.name %>
+          </td>
+        </tr>
+      </table>
+          <% end %>
+    </div>
+  </td>
+</tr>
+<% end %>
+

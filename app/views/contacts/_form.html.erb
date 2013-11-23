@@ -1,0 +1,46 @@
+<%= simple_form_for @contact do |f| %>
+    <% if @contact.errors.any? %>
+        <div id="error_explanation">
+          <h4><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h4>
+          <ul>
+            <% @contact.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div><br>
+    <% end %>
+<div class="owner-box1">
+    <table width="350"  cellpadding="3" cellspacing="3">
+
+      <tr>
+        <td><span class="red"> *</span>Your Email :</td>
+        <td><%= f.input :email, error: false, label: false, input_html: { class: "input4   "}, placeholder: "Enter your email." %></td>
+      </tr>
+
+      <tr>
+        <td><span class="red"> *</span>Subject:</td>
+        <td><%= f.input :subject, error: false, as: :select, prompt: "--Select Subject--", label: false, input_html: { class: "select1"} %></td>
+      </tr>
+
+      <tr>
+        <td valign="top"><span class="red"> *</span>Message:</td>
+        <td><%= f.input :message, error: false, as: :text, label: false, input_html: {class: "textarea" }, placeholder: "Your message." %></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><%= show_simple_captcha placeholder: "Enter secret code.", :image_style => 'simply_red' %><br>
+          <span style="font-size:11px;">Can't read the code?</span><br>
+          <a href="#" style="font-size:11px; color:#3c7aa9;">Listen to the code</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="77">&nbsp;</td>
+        <td width="210"><%= image_submit_tag("send-email.jpg", style: "width: 109px; height: 30px;") %></td>
+      </tr>
+
+    </table>
+ </div>
+
+<% end %>

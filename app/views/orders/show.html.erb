@@ -1,0 +1,31 @@
+<div class="inner-page">
+    <table style="width:  100%; border-collapse:collapse; font-size: 12px;">
+      <tr style=" background-color: #F7941E;font-weight: bold" >
+        <td colspan="2" width="40%" style="text-align: center">My Ads</td>
+        <td width="10%" style=" text-align: center;">Bump Up Amount</td>
+        <td width="10%" style=" text-align: center;">Urgent Ad Amount</td>
+        <td width="14%" style=" text-align: center;">Homepage Gallery Amount</td>
+        <td width="8%" style=" text-align: center;">Top Ad Amount</td>
+        <td width="10%" style=" text-align: center;">Subtotal</td>
+      </tr>
+      <% @order.line_items.each do |item| %>
+        <tr>
+          <td width="5%" style=" text-align: center;"><%= item.advert.photos.present? ? image_tag((item.advert.photos.first).image(:thumb)) : 'Image not available.' %></td>
+          <td width="40%" style="padding-left: 10px;"><b><%= item.advert.title %></b></td>
+          <td style=" text-align: center;"><%= number_to_currency(item.advert_bump_up) if item.advert_bump_up.nonzero?   %></td>
+          <td style=" text-align: center;"><%= number_to_currency(item.advert_urgent_ad) if item.advert_urgent_ad.nonzero?   %></td>
+          <td style=" text-align: center;"><%= number_to_currency(item.advert_homepage_gallery) if item.advert_homepage_gallery.nonzero?   %></td>
+          <td style=" text-align: center;"><%= number_to_currency(item.advert_top_ad) if item.advert_top_ad.nonzero?   %></td>
+          <td style=" text-align: center;font-weight: bold"><%= number_to_currency(item.total_price)  %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="paging-bar" style="width: 99%; color: #000; text-align: right">Grand Total : <%= number_to_currency(@order.total_price) %></div>
+
+      <!-- display payment summary here -->
+
+
+    <div class="form_gray_box" style="width: 100%;text-align: center;" > <br>
+      <%= link_to image_tag('paynow.jpg'), thanks_url %>  <%= link_to image_tag('paynow.jpg'), thanks_url %>
+    </div><br>
+</div>

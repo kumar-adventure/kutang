@@ -1,0 +1,40 @@
+<div id="product-page" xmlns="http://www.w3.org/1999/html">
+    <div class="loction-heading ">
+
+  <div style="float: left;"><%= link_to @advert.location.name, section_path(@advert.category.section_id) %> > <%= link_to @advert.category.section.name, section_path(@advert.category.section_id) %> > <%= link_to @advert.category.name, section_path(@advert.category.section_id, category_id: @advert.category.id) %> >
+        <% if @advert.subcategory.present? %>
+            <%= link_to @advert.subcategory.name, "#" %> >
+        <% end %>
+        <%= "Ad ID "+@advert.id.to_s %>
+  </div>
+
+  <div style="float: right;">
+    <%= link_to image_tag("go-to-ad.jpg", align: "absmiddle"), advert_path(@advert) %>
+  </div>
+
+    </div>
+
+  <div class="heading"><%= @advert.title %></div>
+
+  <div class="inner-page">
+
+    <div class="content">
+          <div class="larger-image">
+            <div class="large-car" style="text-align: center; width: 100%;">
+             <%= image_tag((@advert.photos.first).image(:large)) %>
+            </div>
+                <% @advert.photos.each do |photo| %>
+                    <a href="#" rel="<%= (photo).image(:large) %>" class="image"></a>
+                <% end %>
+          </div>
+
+        <div style="text-align: center;">
+        <%= link_to image_tag("left-icon.jpg", align: "absmiddle", class: "prev"), '#' %>&nbsp;&nbsp;<span id="image-index">1 / <%= @advert.photos.count %></span>&nbsp;&nbsp;<%= link_to image_tag("right-icon.jpg", align: "absmiddle", class: "next"), '#' %>
+        </div>
+
+    </div>
+
+  </div>
+
+ </div>
+
