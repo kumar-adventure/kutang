@@ -7,6 +7,7 @@ class SectionsController < ApplicationController
 
   def index
     @sections = Section.all
+    @categories = Category.all
   end
 
   def show
@@ -34,14 +35,13 @@ class SectionsController < ApplicationController
 
     @all_adverts = @adverts.where(top_ad: false)
     @promotes = @adverts.where(top_ad: true)
-
   end
 
   def select_category
     @sections = Section.all
   end
 
-    def all_categories
+  def all_categories
     @sections = Section.all
     adverts = @sections.collect {|x| x.adverts.all}
     adverts = Advert.where('location_id = ?', session[:current_location]).approved.paginate(page: params[:page], per_page: 20)
@@ -60,10 +60,7 @@ class SectionsController < ApplicationController
     @adverts = Advert.where("location_id =? AND price >=? AND price <=?", session[:current_location], params[:field1], params[:field2]).approved.paginate(page: params[:page], per_page: 5)
     @all_adverts = @adverts.includes(:promotes).where(promotes: {top_ad: false})
     @promotes = @adverts.includes(:promotes).where(:promotes => {:top_ad => true})
-    if @adverts.blank?
-      redirect_to store_location, notice: 'Result not found.'
-    end
+
+    redirect_to store_location, notice: 'Result not found.' if @adverts.blank?
   end
-
-
 end

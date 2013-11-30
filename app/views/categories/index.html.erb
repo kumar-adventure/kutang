@@ -3,45 +3,42 @@
 
   <!--slider-->
   <div class="gallery">
-
     <div class="inner">
       <span style="font-size: 15px;font-weight: bold; padding: 20px" > Select a Category. </span>
     </div>
-
   </div>
   <!--slider end-->
 
-
+  <div>
+    <%= render partial: 'all_categories'%>
+  </div>
   <!--services-->
 
   <% Section.all.group_by(&:col).each do |section_group| %>
-      <div class="services">
-        <% section_group[1].each do |section| %>
-            <h1><%= image_tag((section.icon || "buy-sell-icon.jpg"), align: "absmiddle") %> <%= section.name %></h1>
-            <% if section.name == "Real Estate" %>
-                <ul>
-                  <li style="list-style:none;"><b>For Rent :</b></li>
-                  <% section.categories.rent.order(:name).each do |category| %>
-                      <li><%= link_to category.name, new_category_advert_path(category) %></li>
-                  <% end %>
-                  <li style="list-style:none;"><b>For Sale :</b></li>
-                  <% section.categories.sale.order(:name).each do |category| %>
-                      <li><%= link_to category.name, new_category_advert_path(category) %></li>
-                  <% end %>
-                </ul><br>
-            <% else %>
-                <ul>
-                  <% section.categories.order(:name).each do |category| %>
-                      <li><%= subcategories_present?(category)  %></li>
-                  <% end %>
-                </ul><br>
-            <% end %>
-        <% end %>
-      </div>
-
+    <div class="services">
+      <% section_group[1].each do |section| %>
+          <h1><%= image_tag((section.icon || "buy-sell-icon.jpg"), align: "absmiddle") %> <%= section.name %></h1>
+          <% if section.name == "Real Estate" %>
+              <ul>
+                <li style="list-style:none;"><b>For Rent :</b></li>
+                <% section.categories.rent.order(:name).each do |category| %>
+                    <li><%= link_to category.name, new_category_advert_path(category) %></li>
+                <% end %>
+                <li style="list-style:none;"><b>For Sale :</b></li>
+                <% section.categories.sale.order(:name).each do |category| %>
+                    <li><%= link_to category.name, new_category_advert_path(category) %></li>
+                <% end %>
+              </ul><br>
+          <% else %>
+              <ul>
+                <% section.categories.order(:name).each do |category| %>
+                    <li><%= subcategories_present?(category)  %></li>
+                <% end %>
+              </ul><br>
+          <% end %>
+      <% end %>
+    </div>
   <% end %>
-
-
 </div>
 <!--left side end-->
 
@@ -67,6 +64,5 @@
     </div>
   </div>
   <!--deal ens-->
-
 </div>
 <!--right side end-->
