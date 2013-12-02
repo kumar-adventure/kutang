@@ -1,15 +1,16 @@
 class UsersController < ApplicationController
   before_filter :user_remembered?
   before_filter :current_location
-  before_filter :user_required, except: [:new, :create, :forgot_password, :search_user]
+  #before_filter :user_required, except: [:new, :create, :forgot_password, :search_user]
   before_filter :ad_expire?
-  before_filter :store_location, except: [:new, :create, :show, :update, :search_user]
+  #before_filter :store_location, except: [:new, :create, :show, :update, :search_user]
 
 
   def show
     @user = User.find(params[:id])
   end
 
+=begin
   def new
     if current_user
       redirect_to root_url, notice: "You are already login"
@@ -27,8 +28,9 @@ class UsersController < ApplicationController
       render action: "new"
     end
   end
+=end
 
-  def update
+  def update_password
     @user = User.find(params[:id])
     if params.include?('current_password')
       result = false
@@ -50,6 +52,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+=begin
   def new_password
     user = params[:update_user]
     @user = current_user
@@ -68,6 +72,8 @@ class UsersController < ApplicationController
     end
 
   end
+=end
+
 
   def login
     @user = User.new
@@ -119,13 +125,12 @@ class UsersController < ApplicationController
     end
   end
 
-
-
   def search_my_ads
     @user = current_user
     @adverts = @user.adverts.where("title ILIKE '%#{params[:search][:text1]}%' ").paginate(page: params[:page], per_page: 5)
   end
 
+=begin
   def search_user
     @user = User.find_by_email(params[:search][:email])
     if @user.present?
@@ -135,10 +140,6 @@ class UsersController < ApplicationController
       redirect_to session[:current_url], notice: 'Email address not found. Please enter correct email address'
     end
   end
-
-
-
-
-
+=end
 
 end

@@ -9,7 +9,7 @@ gem "simple_form"
 gem 'exception_notification'
 gem "friendly_id"
 gem "ckeditor"
-
+gem 'devise'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

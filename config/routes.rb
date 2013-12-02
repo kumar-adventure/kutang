@@ -1,5 +1,7 @@
 Kutang::Application.routes.draw do
 
+  #devise_for :users
+  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
   resources :models
 
@@ -60,12 +62,14 @@ Kutang::Application.routes.draw do
     get "search_by_kilometers"
   end
 
+=begin
   controller :session do
     get 'login' => :new
     post 'login' => :create
     delete 'logout' => :destroy
     get 'logout' => :destroy
   end
+=end
 
   controller :pages do
     get "privacy_policy"
@@ -92,6 +96,7 @@ Kutang::Application.routes.draw do
     get "search_my_ads"
     get 'forgot_password'
     get "search_user"
+    post 'update_password'
 
   end
 
