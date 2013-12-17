@@ -9,7 +9,7 @@ gem "simple_form"
 gem 'exception_notification'
 gem "friendly_id"
 gem "ckeditor"
-gem 'devise'
+#gem 'devise'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -66,8 +66,6 @@ gem 'jquery-ui-rails'
 gem 'gon'
 
 
-
-
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -85,6 +83,6 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 # gem 'capistrano'
 
 # To use debugger
- gem 'debugger'
+gem 'debugger'
 gem 'bootstrap-wysihtml5-rails', :require => 'bootstrap-wysihtml5-rails',:git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
 

@@ -10,10 +10,10 @@
 
       <% else %>
 
-      <%=  link_to(new_user_session_url) do %><span class="signin sprite absmiddle"></span><% end %>&nbsp;&nbsp;
-      <%= link_to(new_user_registration_url) do %><span class="register sprite absmiddle"></span><% end %>
+      <%=  link_to('/login') do %><span class="signin sprite absmiddle"></span><% end %>&nbsp;&nbsp;
+      <%#= link_to(new_user_registration_url) do %><span class="register sprite absmiddle"></span><% end %>
           <div style="float: right; margin: -3px 0 0 10px;" >&nbsp;<strong><%= link_to "Help", help_path, class: "active" %></strong></div>
-      <% end %>
+      <% #end %>
       <div><a href="#">English</a> | <a href="#">French</a></div>
     </div>
   </div>
@@ -51,7 +51,7 @@
       <% if current_user.present? %>
           <%= link_to image_tag("my-kutangaza.jpg", align: "absmiddle"), mykutangaza_path %>
       <% else %>
-          <%= link_to image_tag("my-kutangaza.jpg",  align: "absmiddle"), new_user_session_url %>
+          <%#= link_to image_tag("my-kutangaza.jpg",  align: "absmiddle"), new_user_session_url %>
       <% end %>
       &nbsp;<%= link_to image_tag("post-ad-free.jpg", align: "absmiddle"), categories_url %>
     </div>

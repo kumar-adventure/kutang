@@ -1,11 +1,17 @@
 Kutang::Application.routes.draw do
 
   #devise_for :users
-  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
+  #devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
   resources :models
 
-
+  controller :session do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+    get 'logout' => :destroy
+  end
+  
   resources :orders, only: [:show, :create, :update]
 
   resources :line_items, only: [:create, :update]
