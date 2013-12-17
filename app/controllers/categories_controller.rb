@@ -9,6 +9,12 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @sub_category = Subcategory.where(name: params[:id]).first
+    if @sub_category.blank?
+      flash[:error] = "Requested category does not exists."
+      redirect_to root_url 
+    end
+=begin
     adverts = Category.find(params[:id]).adverts if params[:id].present?
     adverts = Section.find(params[:section]).categories.includes(:adverts).where(:adverts => {approved: true}) if params[:section].present?
     adverts = adverts.where("location_id =?", session[:current_location])
@@ -25,6 +31,8 @@ class CategoriesController < ApplicationController
 
     @all_adverts = @adverts.includes(:promotes).where(promotes: {top_ad: false})
     @promotes = @adverts.includes(:promotes).where(:promotes => {:top_ad => true})
+=end
+
   end
 
 

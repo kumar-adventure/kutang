@@ -5,13 +5,17 @@ class SectionsController < ApplicationController
   before_filter :store_location
   before_filter :top_and_promote_ads
 
+
   def index
     @sections = Section.all
     @categories = Category.all
   end
 
   def show
-    @section = Section.find(params[:id])
+    @subcategory = Subcategory.where(name: params[:id]).first
+    @adverts = @subcategory.adverts
+=begin
+@section = Section.find(params[:id])
     adverts = @section.adverts
     adverts = adverts.where("title ILIKE '%#{params[:text1]}%'") if params[:text1].present?
     adverts = Category.find(params[:category_id]).adverts if params[:category_id].present?
@@ -35,6 +39,8 @@ class SectionsController < ApplicationController
 
     @all_adverts = @adverts.where(top_ad: false)
     @promotes = @adverts.where(top_ad: true)
+=end
+
   end
 
   def select_category

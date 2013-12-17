@@ -1,200 +1,197 @@
-<div class="search-left">
+<div class="container">
+  <%=form_for @advert=Advert.new,  :url => adverts_path(), :method=>"post" do |f| %>
+    <input type="hidden" name="sub_category" value="<%= @sub_category.name %>">
+    <div class="row-fluid">
+      <div class="span2">
+        <strong>Ad Type *</strong>
+      </div>
+      <div class="span10">
+        <input type="radio" name="advert[ad_type]" value="1"> I am offering<br/>
+        <input type="radio" name="advert[ad_type]" value="2"> I want
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong>Price *</strong>
+      </div>
+      <div class="span6">
+        <input type="radio" name="advert[pricing_strategy]" value="0"> $</input>
+        <input type="text" name="advert[price]"></input><br>
+        <input type="radio" name="advert[pricing_strategy]" value="1"> Free</input><br>
+        <input type="radio" name="advert[pricing_strategy]" value="2"> Please contact</input><br>
+        <input type="radio" name="advert[pricing_strategy]" value="3"> Swap/ Trade</input>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong>For Sale By *</strong>
+      </div>
+      <div class="span10">
+        <input type="radio" name="advert[sale_by]" value="owner"> Owner </input><span>-  It's completely FREE to sell</span><br>
+        <input type="radio" name="advert[sale_by]" value="dealer"> Dealer </input><span>-  $14.99 listing fee for 31 days</span>
+      </div>
+    </div>
+      <!-- <div>
+        <div class="span2">
+          <strong> Make *</strong>
+        </div>
+        <div class="span10">
+          <select  name="make" >
+            <option value="">-------</option>
+          </select>
+          <strong> Model *</strong>
+          <select  name="model" >
+            <option value="">-------</option>
+          </select>
+          <strong> Trim </strong><input type="text"></input>
+        </div>
+      <div>
+      <div class="row-fluid">
+        <div class="span2">
+          <strong> Year *</strong>
+        </div>
+        <div class="span10">
+          <input type="text"></input>
+          <strong> Kilometrs *</strong>
+          <input type="text"></input>
+        </div>
+      </div>
+      <div class="row-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <strong> Body type *</strong>
+        </div>
+        <div class="span10">
+          <select type="radio" name="body_type" >
+            <option value="">-</option>
+          </select>
+          <strong> Transmission *</strong>
+          <select  name="transmission" >
+            <option value="">-</option>
+          </select>
+         </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span2">
+          <strong> Colour *</strong>
+        </div>
+        <div class="span10">
+          <select  name="colour" >
+            <option value="">-</option>
+          </select>
+          <strong> Drivetrain *</strong>
+          <select  name="drivetrain" >
+            <option value="">-</option>
+          </select>
+         </div>
+      </div>
 
-  <div class="red-bar"> Current Matches (<%= @adverts.count %>) </div>
+      <div class="row-fluid">
+        <div class="span2">
+          <strong> Type *</strong>
+        </div>
+        <div class="span10">
+          <select  name="type" >
+            <option value="">-</option>
+          </select>
+          <strong> Fluel type *</strong>
+          <select  name="fluel_type" >
+            <option value="">-</option>
+          </select>
+         </div>
+      </div> -->
+    <div class="row-fluid">
+      <div class="span2">
+        <strong> Ad title *</strong>
+      </div>
+      <div class="span10">
+        <input type="text" name="advert[title]"></input>  
+      </div>
+    </div>
 
-  <strong class="side-menu" style="cursor:pointer;" ><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Category</strong>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong> Description *</strong>
+      </div>
+      <div class="span10"> 
+        <textarea id="some-textarea" class='wysihtml5' rows="10" cols="40" placeholder="Enter text .." name="advert[description]">
+        </textarea>
+      </div>
+    </div>  
+ <!--    <div class="row-fluid">
+      <div class="span2">
+        <strong>  Video *</strong>
+      </div>
+      <div class="span10">
+        <label>Add a YouTube video to your adUpload your video to YouTube then enter the link below </label><br>
+        <input type="text" name="video" placeholder ="http://www.youtube.com/watch?v=-zmI_X5Wzn0"></input>  
+      </div>
+    </div> -->
+    <div class="row-fluid">
+      <div class="span2">
+        <strong>  Email *</strong>
+      </div>
+      <div class="span10">
+        <label>Your email address will not be shared with other </label>
+        <input type="email" name="advert[email]"></input>  
+      </div>
+    </div>
 
-  <ul>
-    <li><%= link_to "All Categories", all_categories_path %></li>
-    <li>
-      <ul>
-            <% @adverts.group(:category_id).count.each do |category, count| %>
-            <li><%= section_name(@adverts, Category.find(category).section_id, 'section').html_safe %></li>
-            <li>
-              <ul>
-                <li><strong class="orange"><%= "#{Category.find(category).name} (#{count})" %></strong></li>
-                <% unless Category.find(category).subcategories.blank? %>
-                    <li>
-                      <ul>
-                        <% @adverts.group(:subcategory_id).count.each do |subcategory, count| %>
-                            <li><%= link_to "#{Subcategory.find(subcategory).name} (#{count})", subcategory_path(Subcategory.find(subcategory).name) unless subcategory.blank? %></strong></li>
-                        <% end %>
-                      </ul>
-                    </li>
-                <% end %>
-            <% end %>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul><br>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong> Phone *</strong>
+      </div>
+      <div class="span10">
+        <input type="text" name="advert[phone]"></input><br>
+        <label>Optional. If you enter your phone number above, it will show up on your Ad.</label>  
+      </div>
+    </div>
 
-  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Location</strong>
-  <ul>
-    <% @adverts.group(:location_id).count %>
-    <li><strong class="orange"><%= "#{Location.find(session[:current_location]).name} (#{@adverts.count})"%></strong></li>
-  </ul><br>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong> Location *</strong>
+      </div>
+      <div class="span10">
+        <select name="advert[location_id]" id="Location_ID">
+          <option value="">----------</option>
+        </select><br>
+        <label>Please select your location or the one nearest you. Your Ad will be posted on both the site for that location and Kijiji Cariboo Area.</label>  
+      </div>
+    </div>
 
-  <% if @adverts.where('ad_type = ? OR ad_type = ?', "Offering" ,"Wanted").present? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Type</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'ad_type').html_safe %></li>
-        <% if @adverts.where(:ad_type => 'Offering').present? %>
-            <li><%= activated_link(@adverts, 'ad_type', 'Offering').html_safe %></li>
-        <% end %>
-        <% if @adverts.where(:ad_type => 'Wanted').present? %>
-            <li><%= activated_link(@adverts, 'ad_type', 'Wanted').html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end %>
+    <div class="row-fluid">
+      <div class="span2">
+        <strong> Address *</strong>
+      </div>
+      <div class="span10">
+        <input type="text" name="advert[address]"></input><br>
+        <label>Enter your postal code and/or street address above</label>  
+      </div>
+    </div>
+      
+    <div class="row-fluid">
+      <div class="span12"></div>  
+    </div>
+  
+    <div class="row-fluid">
+      <div class="span2">
+      </div>
+      <div class="span4">
+        <%= f.submit :value => "Submit", class: 'btn btn-success' %>
+      </div>
+    </div>
 
-  <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Featured Ads</strong>
-  <ul>
-    <li><%= filter_header_link('All Featured Ads', 'featured_ad').html_safe %></li>
-    <% if @adverts.where(:urgent_ads => true).present? %>
-        <li><%= featured_ads(@adverts, 'featured_ad', 'urgent_ads').html_safe %></li>
-
-    <% end %>
-    <% if @adverts.where(:carproof_included => true).present? %>
-        <li><%= featured_ads(@adverts, 'featured_ad', 'carproof_included').html_safe %> </li>
-        <% end %>
-    <% if @adverts.where(:certified_pre_owned => true).present? %>
-        <li><%= featured_ads(@adverts, 'featured_ad', 'certified_pre_owned').html_safe %> </li>
-    <% end %>
-  </ul><br>
-  <% if @adverts.sum(:price).nonzero? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Price</strong>
-      <%= form_tag  request.fullpath + (request.url.include?('?') ? '&' : '?') , method: :get do %>
-          <table style="margin: 0 auto;">
-            <tr>
-              <td ><%= text_field_tag 'field1','', class: "price-input2", placeholder: "from" %> -</td>
-              <td ><%= text_field_tag 'field2','', class: "price-input2", placeholder: "to" %></td>
-              <td><%= submit_tag("Go") %></td>
-            </tr>
-          </table>
-      <% end %><br>
-  <% end %>
-
-  <% if @adverts.where('sale_by =? OR sale_by =? ', 'Owner','Dealer').present? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> For Sale By</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'sale_by').html_safe %></li>
-        <% if @adverts.where(:sale_by => "Owner").present? %>
-            <li><%= activated_link(@adverts, 'sale_by', 'Owner').html_safe %></li>
-        <% end %>
-        <% if @adverts.where(:sale_by => "Dealer").present? %>
-            <li><%= activated_link(@adverts, 'sale_by', 'Dealer').html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end %>
-
-
-  <% if @adverts.where(:year => nil).blank? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Year</strong>
-      <%= form_tag :search_by_years, method: :get do %>
-          <table style="margin: 0 auto;" >
-            <tr>
-              <td ><%= text_field_tag 'field1','', class: "price-input2" %> -</td>
-              <td ><%= text_field_tag 'field2','', class: "price-input2" %></td>
-              <td><%= submit_tag("Go") %></td>
-            </tr>
-          </table>
-      <% end %><br>
-  <% end %>
-
-  <% unless @adverts.where(:make => nil).present? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Make</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'make').html_safe %></li>
-        <% @adverts.group(:make).count.each do |mk, cnt| %>
-            <li><%= activated_link(@adverts, 'make', mk).html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end %>
-
-  <% unless @adverts.where(:kilometers => nil).present? %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Kilometers</strong>
-      <%= form_tag :search_by_kilometers, method: :get do %>
-          <table style="margin: 0 auto;" >
-            <tr>
-              <td ><%= text_field_tag 'field1','', class: "price-input2", placeholder: "from" %> -</td>
-              <td ><%= text_field_tag 'field2','', class: "price-input2", placeholder: "to" %></td>
-              <td><%= submit_tag("Go") %></td>
-            </tr>
-          </table>
-      <% end %><br>
-  <% end %>
-
-  <% unless @adverts.where(:body_type => nil).present?  %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Body Type</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'body_type').html_safe %></li>
-        <% @adverts.order(:body_type).group('body_type').count.each do |body, count| %>
-            <li><%= activated_link(@adverts, 'body_type', body).html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end   %>
-
-  <% unless @adverts.where(:transmission => nil).present?  %>
-      <strong class="side-menu" style="cursor: pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Transmission</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'transmission').html_safe %></li>
-        <% @adverts.order(:transmission).group('transmission').count.each do |transmission, count| %>
-            <li><%= activated_link(@adverts, 'transmission', transmission).html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end   %>
-
-  <% unless @adverts.where(:color => nil).present?  %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Color</strong>
-      <ul>
-        <li><%= filter_header_link('All Colors', 'color').html_safe %></li>
-        <% @adverts.order(:color).group('color').count.each do |color, count| %>
-            <li><%= activated_link(@adverts, 'color', color).html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end   %>
-
-  <% unless @adverts.where(:fuel_type => nil).present?  %>
-      <strong class="side-menu" style="cursor:pointer;"><%= image_tag("arrow-down.jpg", width: "12", height: "6", align: "absmiddle") %> Fuel Type</strong>
-      <ul>
-        <li><%= filter_header_link('All Types', 'fuel_type').html_safe %></li>
-        <% @adverts.order(:fuel_type).group('fuel_type').count.each do |fuel, count| %>
-            <li><%= activated_link(@adverts, 'fuel_type', fuel).html_safe %></li>
-        <% end %>
-      </ul><br>
-  <% end   %>
+    <div class="row-fluid">
+      <div class="span12"></div>  
+    </div>
+  <%end%>
 </div>
 
-<div class="search-right">
-  <!--search result table-->
-  <table width="98%" cellpadding="5" cellspacing="0" >
-    <tr class="sorting-bar">
-      <td style="width: 50px"></td>
-      <td style="width: 110px"></td>
-      <td style="width: 600px"></td>
-      <td style="width: 120px">Price</td>
-      <td style="width: 120px">Posted</td>
-    </tr>
-    <% unless @promotes.blank? %>
-        <tr>
-          <td colspan="2" class="top_ads"><strong>Top Ads</strong>&nbsp;&nbsp;<a href="#">See all</a></td>
-          <td colspan="3" class="top_ads" align="right">Want to promote your Ad here? <a href="#">Learn more</a></td>
-        </tr>
-        <%= render partial: "adverts/top_ads", object: @promotes %>
-        <tr><td colspan="5" class="top_ads" style="padding: 0px 0px">&nbsp;<a href="#"></a></td></tr>
-    <% end %>
 
-    <% if @all_adverts.present? %>
-
-        <%= render partial: "adverts/adverts", object: @all_adverts %>
-
-    <% end %>
-  </table>
-  <!--search result table end-->
-
-
-  <div class="paging-bar"><%= will_paginate @adverts %></div>
-
-
-</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.wysihtml5').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+  })
+</script>

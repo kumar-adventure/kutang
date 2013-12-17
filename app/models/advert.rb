@@ -1,10 +1,15 @@
 class Advert < ActiveRecord::Base
-  attr_accessible :address, :approved, :category_id, :description, :email, :featured, :location_id, :phone, :price, :pricing_strategy, :title, :website, :user_id
-  attr_accessible :ad_type, :sale_by, :job_type, :year, :kilometers, :trim, :body_type, :fuel_type, :transmission, :color, :drivetrain, :make
-  attr_accessible :model, :vehicle_type, :engine_displacement, :event_date_from, :event_date_to, :event_time_from, :event_time_to, :expire_date
+  attr_accessible :address, :approved, :category_id, :description, :email, :featured, :location_id, :phone, :price,
+    :pricing_strategy, :title, :website, :user_id
+  attr_accessible :ad_type, :sale_by, :job_type, :year, :kilometers, :trim, :body_type, :fuel_type, :transmission, 
+    :color, :drivetrain, :make
+  attr_accessible :model, :vehicle_type, :engine_displacement, :event_date_from, :event_date_to, :event_time_from,
+    :event_time_to, :expire_date
   attr_accessible :expire, :visits, :accept, :photos_attributes, :subcategory_id, :gender, :frame_size, :brand, :carrier
-  attr_accessible :bedrooms, :bathrooms, :size, :furnished, :pet_friendly, :sleeps, :vacation_type, :urgent_ads,:carproof_included, :certified_Pre_Owned
-  attr_accessible :vin, :report_url, :stock, :diameter, :dob, :top_ad, :promotes_attributes, :urgent, :bump_up_ads, :homepage_ads
+  attr_accessible :bedrooms, :bathrooms, :size, :furnished, :pet_friendly, :sleeps, :vacation_type, :urgent_ads,
+    :carproof_included, :certified_Pre_Owned
+  attr_accessible :vin, :report_url, :stock, :diameter, :dob, :top_ad, :promotes_attributes, :urgent, :bump_up_ads,
+    :homepage_ads
 
   belongs_to :location
   belongs_to :category

@@ -1,11 +1,11 @@
 <div class="row-fluid">
 	<div class="span12">
-		<% size, count = @categories.size, 0 %>
+		<% size, count = @categories.size, 1 %>
 		<% @categories.each do |category|%>
-		  <div class="span4 <%= 'margin_140' if count == 5 %><%= 'margin_140_job' if count == 6 %><%= 'margin_130' if count == 7 %> "><b><%= category.name%></b>
+		  <div class="span4 <%= 'margin_140' if count == 5 %> <%= 'margin_130' if count == 7 %> <%= 'margin_220' if count == 8 %>"><b><%= category.name%></b>
 		  	<%category.subcategories.each do |sub_category|%>
 			  	<div>
-			  	  <%= link_to sub_category.name, ""%>
+			  	  <%= link_to sub_category.name, category_path(sub_category.name)%>
 			  	</div>
 		  	<%end%>
 		  </div>

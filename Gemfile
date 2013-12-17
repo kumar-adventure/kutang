@@ -14,8 +14,9 @@ gem 'devise'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-#gem 'sqlite3'
+#gem 'pg'
+gem 'sqlite3'
+gem 'tinymce-rails'
 
 group :development do
   gem 'pry-rails'
@@ -84,4 +85,6 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+ gem 'debugger'
+gem 'bootstrap-wysihtml5-rails', :require => 'bootstrap-wysihtml5-rails',:git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
+

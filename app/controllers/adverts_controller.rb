@@ -37,9 +37,19 @@ class AdvertsController < ApplicationController
   end
 
   def create
-    @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id].present?
-    @category = Category.find(params[:category_id].present? ? params[:category_id] : @subcategory.category_id)
-    @advert = @category.adverts.new(params[:advert])
+    @sub_category = Subcategory.where(name: params[:sub_category]).first
+    if @sub_category.blank?
+      flash[:error] = "Given category does not exists."
+      redirect_to root_url 
+    end
+    advert = @sub_category.adverts.new(params[:advert])
+    if advert.save
+      flash[:notice] = "Advertisement has successfully posted."
+    else
+      flash[:error] = "Advertisement did not post successfully."
+    end
+    redirect_to category_path(@sub_category.name)
+=begin
     @makes = @category.makes.pluck(:title)
     @advert
     if validate_form_fields(@advert, params[:advert]).present?
@@ -54,6 +64,8 @@ class AdvertsController < ApplicationController
            render action: "new"
         end
     end
+=end  
+
   end
 
   def update
