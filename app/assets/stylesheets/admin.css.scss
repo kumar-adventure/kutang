@@ -1,0 +1,502 @@
+@charset "utf-8";
+/* CSS Document */
+
+body.admin {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #323232;
+  font-size: 13px;
+  background-image:image-url("logo-bg.jpg");
+  background-repeat: repeat-x;
+
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  img {
+    border: 0px;
+  }
+
+  h1 {
+    font-size: 30px;
+    color: #413829;
+  }
+
+  h2 {
+    color: #4a3d34;
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  li {
+    color: #3b3b3b
+  }
+
+  #main {
+    width: 98%;
+    margin: 0px auto;
+    overflow: hidden;
+  }
+
+  #main2 {
+
+    background: #e4e4e4;
+    margin: 0px 0 15px 0;
+    overflow: hidden;
+    order-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+
+  }
+
+  #header {
+    height: 150px;
+    overflow: hidden
+  }
+
+  #logo {
+    width: 60%;
+    float: left;
+    padding: 20px 0 0 0;
+    font-size: 35px;
+    color: #000;
+
+  }
+
+  #header_right {
+    float: right;
+    margin: 70px 0 0 0;
+    font-size: 13px;
+    color: #fff;
+    width: 18%;
+  }
+
+  #upper_nav {
+    margin: 15px 0 0 0px;
+  }
+
+  #upper_nav ul {
+    list-style: none;
+  }
+
+  #upper_nav ul li {
+    display: inline;
+  }
+
+  #upper_nav ul li a {
+    background: #024454;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 3px 8px 3px 8px;
+    order-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  #upper_nav ul li a:hover {
+    background: #2699D0;
+    text-align: center;
+    color: #FFF;
+    text-transform: uppercase;
+    order-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  #nav {
+
+    /*background:url(nav-bg.jpg) repeat-x;*/
+    background: #9B0200;
+    padding: 10px 0 0 0;
+    width: 100%;
+    height: 27px;
+    border: 1px solid #024454;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  #nav ul {
+    list-style-type: none;
+  }
+
+  #nav ul li {
+    display: inline;
+    border-left: 1px solid #94a907;
+    padding: 5px 0;
+  }
+
+  #nav ul li a {
+    padding: 10px 10px 5px 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  #nav ul li a:hover {
+    text-transform: uppercase;
+    color: #9B0200;
+    background: #fff;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  #container {
+    /*margin:17px 0 0 0 ;*/
+    margin: 20px;
+    background: #fff;
+    /*margin:0 auto;*/
+    overflow: hidden;
+    padding: 0 9px;
+
+  }
+
+  #container_left {
+    width: 19%;
+    padding: 0px;
+    margin: 20px 0px 0px 0px;
+    float: left;
+    overflow: hidden;
+  }
+
+  .headding {
+    padding: 8px 0 8px 12px;
+    color: #4a3d34;
+    font-size: 15px;
+    margin: 24px 0 3px 0;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+    background: #eee8dd;
+    /*background:url(img-1.jpg) no-repeat;*/
+  }
+
+  #container_left ul {
+    margin-left: 10px;
+    list-style: none;
+
+  }
+
+  #container_left ul li {
+    display: block;
+    color: #3b3b3b;
+    padding: 8px 0 8px 9px;
+    border-bottom: 1px solid #d9d9d9;
+    background: url(../images/bullet.jpg) left no-repeat;
+  }
+
+  #container_left ul li:last-child {
+    border-bottom: none;
+  }
+
+  #container_midd {
+    width: 46%;
+    margin: auto;
+    padding: 73px 0px 0px 28px;
+    overflow: hidden;
+    float: left;
+  }
+
+  #order_box {
+    overflow: hidden;
+    margin: 18px 0;
+    width: 98%;
+    background: #a8be17;
+    border: 1px solid #b5ca2b;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  .order_box_text {
+    overflow: hidden;
+    text-align: center;
+    padding: 20px 10px;
+    width: 20%;
+    font-size: 14px;
+    float: left;
+    color: #FFF;
+    border-right: 1px solid #778805;
+  }
+
+  #range {
+    padding: 5px 0;
+    overflow: hidden;
+    margin: 80px 0 0 0;
+    width: 98%;
+    text-align: center;
+    color: #fff;
+    background: #413829;
+    border: 1px solid #484034;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  .select-1 {
+    width: 100px;
+    height: 19px;
+    margin: 0 10px 0 4px;
+  }
+
+  #container_right {
+    background: #eee8dd;
+    width: 30%;
+    margin: 0px 0px 0px 0px;
+    padding: 75px 5px 10px 5px;
+    float: right;
+    overflow: hidden;
+  }
+
+  .order_hedding {
+    padding: 5px 5px 0 8px;
+    color: #fff;
+    width: 98%;
+    height: 22px;
+    font-size: 13px;
+    background: #413829;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+  }
+
+  .order_hedding p {
+    color: #3b3b3b;
+    line-height: 24px;
+  }
+
+  .name {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+  }
+
+  .name1 {
+    width: 98%;
+    float: left;
+    overflow: hidden;
+  }
+
+  .items {
+    width: 35% px;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .total {
+    width: 40%;
+    float: right;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .textinput {
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+
+  }
+
+  select, .textinput {
+    padding: 0px;
+    width: 300px;
+    padding: 0px;
+  }
+
+  select {
+    width: 200px;
+  }
+
+  .big_button {
+    display: block;
+    width: 175px;
+    height: 45px;
+    margin-top: 10px;
+    /*margin: 0px auto;*/
+
+  }
+
+  .required abbr {
+    border: none;
+  }
+
+  .simple_form {
+    $indent: 190px;
+    label {
+      float: left;
+      width: $indent - 20px;
+      text-align: left;
+      margin: 8px 3px;
+    }
+   .btn {
+      margin-left: $indent;
+    }
+    .alert-error {
+      color: #D00;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .hint, .error {
+      clear: left;
+      margin-left: $indent;
+      font-size: 12px;
+      color: #D00;
+      display: none;
+    }
+    .hint {
+      color: #555;
+      font-style: italic;
+    }
+
+    .big_button {
+      margin-left: $indent;
+    }
+    .short_select {
+      width: 130px;
+
+    }
+
+    span.help {
+      color: #aa0505;
+      font-style: italic;
+      margin-left: $indent - 15px;
+    }
+
+    input[type="image"] {
+      margin-left: $indent;
+    }
+    div.input.boolean.required {
+
+      display: inline;
+    }
+    div.input.check_boxes, div.input.radio_buttons {
+
+      span.checkbox, span.radio {
+        label {
+          float: none;
+        }
+        input {
+          border: red thick solid;
+        }
+      }
+    }
+
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table tr th {
+    background: #999;
+    height: 30px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  table tr td {
+    height: 37px;
+  }
+
+  table th {
+    border-right: 1px solid #ccc;
+  }
+
+  table th:last-child {
+    border: none;
+  }
+
+  table td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding-left: 8px
+
+  }
+
+  table td:last-child {
+    border-right: none;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #eee;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fff;
+  }
+
+  .edit, .destroy, .show {
+    font-size: 20px;
+    color: transparent;
+  }
+
+  .edit {
+    background: url(edit.png) no-repeat;
+  }
+
+  .destroy {
+    background: url(delete.png) no-repeat;
+  }
+
+  .show {
+    background: url(show.png) no-repeat;
+  }
+
+  .admin-form {
+    background-color: #ffffff;
+  }
+
+  .admin-form table {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .admin-form table tr {
+    background: #fff;
+  }
+
+  .admin-form table td {
+    border: none;
+  }
+
+  .admin-form-fields {
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px;
+    font-size: small;
+    width: 1045px;
+
+ table {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+ table tr {
+    background: #fff;
+  }
+
+ table td {
+    border: none;
+   }
+ }
+}

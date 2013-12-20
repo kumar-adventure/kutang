@@ -1,0 +1,68 @@
+<!--header-->
+<header>
+
+<!--logo-->
+<div id="logo">
+  <div class="left"><%= link_to image_tag("kutangaza-logo.jpg"), root_path %></div>
+  <div class="right">
+    <% if session[:user_id].present? %>
+      Hi <%= current_user.email %> | <%= link_to image_tag("logout.png", align: "absmiddle"), logout_path %>
+    <% else %>
+      <%= link_to(new_user_session_path) do %>
+        <span class="signin sprite absmiddle"></span>
+      <% end %>
+      &nbsp;&nbsp;
+      <%= link_to(new_user_registration_path) do %>
+        <span class="register sprite absmiddle"></span>
+      <% end %>
+
+      <div style="float: right; margin: -3px 0 0 10px;" >
+        &nbsp;<strong><%#= link_to "Help", help_path, class: "active" %></strong>
+      </div>
+    <% end %>
+    <div><a href="#">English</a> | <a href="#">French</a></div>
+  </div>
+</div>
+<!--logo end-->
+
+</header>
+<!--header end-->
+
+  <!--search bar-->
+  <div id="search-bar">
+    <div class="left">
+     <div class="search">
+          <%= form_tag "section_path(1)", method: :get, id: 'search_form' do %>
+           <table width="700" style="margin-top: -1px" >
+             <tr>
+               <td><strong>Search Kutangaza</strong></td>
+               <td><%= text_field_tag "text1"  %></td>
+               <td><b>In</b>&#160;&#160;<%#= select_tag 'search_section_id', options_for_select(Section.all.collect{ |u| [u.name, u.id] })  %></td>
+               <td><%= image_submit_tag("go.jpg", align: "absmiddle") %></td>
+             </tr>
+           </table>
+          <% end %>
+     </div>
+    </div>
+    <div class="right">
+      <form style="display: inline-block;">
+        <b>Locations :</b></span>
+          <select name="locations" id="locations">
+            <%# Location.all.each do |location| %>
+                <%#= session[:current_location] == location.id ? "<option selected value=#{location.name} >#{location.name}</option>".html_safe : "<option value=#{location.name}>#{location.name}</option>".html_safe %>
+            <%# end %>
+          </select>
+
+      </form>&#160;&#160;&#160;
+      <% if current_user.present? %>
+          <%#= link_to image_tag("my-kutangaza.jpg", align: "absmiddle"), mykutangaza_path %>
+      <% else %>
+          <%#= link_to image_tag("my-kutangaza.jpg",  align: "absmiddle"), login_url %>
+      <% end %>
+      &nbsp;<%#= link_to image_tag("post-ad-free.jpg", align: "absmiddle"), categories_url %>
+    </div>
+
+  </div>
+  <!--search bar end-->
+
+
