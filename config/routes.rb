@@ -13,6 +13,18 @@ Kutang::Application.routes.draw do
     get 'show'
   end
 
+  controller :users do
+    get "mykutangaza"
+    get "pending_ads"
+    get "onhold_ads"
+    get "expired_ads"
+
+    get "promote_my_ads"
+    get "my_order"
+    get "search_my_ads"
+    get "search_user"
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

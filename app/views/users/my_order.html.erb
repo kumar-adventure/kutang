@@ -1,0 +1,50 @@
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", my_profile_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
+
+<div class="heading">My Orders</div>
+
+<div class="inner-page">
+  <%= form_for :search, url: :my_order, method: :get do |f| %>
+      <table>
+        <tr>
+          <td><b>Month</b></td>
+          <td><%= f.select_month(Date.today, field_name: 'month') %></td>
+          <td>&#160;&#160;&#160;&#160;<b>Year</b></td>
+          <td><%= f.select_year(Date.today, field_name: 'year', :style => "width:200px") %></td>
+          <td><%= image_submit_tag("go.jpg", align: "absmiddle") %></td>
+        </tr>
+      </table>
+  <% end %><br>
+  <table style="width:  100%;border-collapse:collapse; font-size: 12px;">
+    <tr style=" background-color: #F7941E;font-weight: bold" >
+      <td width="5%"></td><td width="20%">Reference Number</td><td width="50%">Order Details</td><td width="15%">Date</td><td width="15%">Total</td>
+    </tr>
+    <% if @adverts.present? %>
+        <% @adverts.each do |advert| %>
+            <tr>
+              <td></td>
+              <td><%= advert.id %>&#160;&#160;&#160;<%= link_to 'Reference#', order_reference_advert_path(advert) if (advert.urgent_ads.present? || advert.homepage_ads.present? || advert.top_ad.present? || advert.bump_up_ads.present?) %></td>
+              <td>
+                <%= "Urgent Ad for 7 days, " if advert.promotes.last.urgent_ad.present? %>
+                <%= " Top Ad for #{advert.promotes.last.top_ad_days} days, " if advert.promotes.last.top_ad.present? %>
+                <%= " Homepage Gallery for 7 days." if advert.promotes.last.gallery.present? %>
+              </td>
+              <td><%= advert.created_at.strftime("%e-%b-%y") %></td>
+              <td><%= number_to_currency(advert.promotes.last.total_price) %></td>
+            </tr>
+
+        <% end %>
+    <% else  %>
+        <tr>
+          <td colspan="5" align="left">Sorry..no orders found. </td>
+        </tr>
+    <% end %>
+  </table>
+ <div class="paging-bar"><%= will_paginate @adverts %></div><br>
+</div>

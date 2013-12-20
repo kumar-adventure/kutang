@@ -1,16 +1,29 @@
-<h2>Change your password</h2>
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= link_to "My Profile", edit_user_registration_path, class: "active" %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+<div class="heading">Change Password</div>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password, :autofocus => true %></div>
+<div class="inner-page">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <table width="50%">
+        <tr><td>Hi <%= resource.email %></td></tr>
+        <tr><td>Please enter a new password below.</td></tr>
+        <tr><td><%= devise_error_messages! %></td></tr>
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
+        <tr><td><strong>Verify your current password to save changes</strong><br> <input type='password' name="current_password" class="input1" ></td></tr>
+        <tr><td><strong>New password (at least 6 characters)</strong><br><%= f.password_field :password, class: "input1" %></td></tr>
+        <tr><td><strong>Re-type new password</strong><br><%= f.password_field :password_confirmation, class: "input1" %></td></tr>
+        <tr><td><%= image_submit_tag("change-password.jpg") %></td></tr>
+      </table>
+    <% end %>
 
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  <br><br><br><br>
+</div>

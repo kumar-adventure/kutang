@@ -1,29 +1,62 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="login-nav">
+  <ul>
+    <li><%= active_link_to "My Ads (#{count_adverts})", mykutangaza_path %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", edit_user_registration_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="heading">My Profile</div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+<div class="inner-page">
+  Please enter your contact information. this will be used in your ads and by Kutangaza should we need to contact you.
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <span style="color: green; font-weight: bold;">Account Details</span>
+    <div class="my_profile">
+      <table>
+        <tr>
+          <td><span style="font-weight:bold;">Nickname</span><%= f.text_field :nickname, class: "input1" %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Email address</span><%= f.email_field :email, :autofocus => true, class: "input1" %></td>
+        </tr>
+        <tr height="40px">
+          <td><span style="font-weight:bold;">Password : **********</span>&nbsp;&nbsp; <%= link_to "Change", change_password_path %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Password<i>(leave blank if you don't want to change it)</i></span><%= f.password_field :password, :autocomplete => "off", class: "input1" %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Password Confirmation</span><%= f.password_field :password_confirmation, class: "input1" %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Current Password <i>(we need your current password to confirm your changes)</i></span><%= f.password_field :current_password, class: "input1" %></td>
+        </tr>
+      </table>
+    </div>
+    <span style="color: green; font-weight: bold;">Contact Details</span>
+    <div class="my_profile">
+      <table>
+        <tr>
+          <td><span style="font-weight:bold;">Contact Person (optional)</span><%= f.text_field :contact_person, class: "input1" %></td>
+        </tr>
+        <tr>
+         <td><span style="font-weight:bold;">Address (optional)</span><%= f.text_area :address, class: "input1" %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Phone Number (optional)</span><%= f.text_field :phone, class: "input1" %></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:bold;">Skype ID (optional)</span><%= f.text_field :skype_id, class: "input1" %></td>
+        </tr>
+        <tr height="35px">
+          <td><%= image_submit_tag("update-profile.jpg", align: "absmiddle", style: "width: 99px; height: 29px;") %></td>
+        </tr>
+      </table>
+    </div>
   <% end %>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

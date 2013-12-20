@@ -1,0 +1,79 @@
+<!--Terms of Use-->
+<div class="login-nav">
+  <ul>
+    <li><%= link_to "My Ads (#{count_adverts})", mykutangaza_path, class: "active" %></li>
+    <li><%= active_link_to "Promote My Ads", promote_my_ads_path %></li>
+    <li><%= active_link_to "My Profile", my_profile_path %></li>
+    <li><%= active_link_to "My Order", my_order_path %></li>
+  </ul>
+</div>
+
+<div class="heading">My Ads</div>
+
+<div class="inner-page">
+
+  <div class="content">
+
+    <div style="margin-bottom: 10px; overflow: hidden;">
+      <div class="login-subnav">
+        <span style="font-size:14px; color:#bf2030;">Show Me:</span>
+        <ul>
+          <li><%= active_link_to "Active Ads (#{active?})", mykutangaza_path %></li>
+          <li><%= active_link_to "Expired Ads (#{expired?})", expired_ads_path %></li>
+          <li><%= active_link_to "Pending Ads (#{pending?})", pending_ads_path%></li>
+          <li><%= active_link_to "On Holds Ads (#{onhold?})", onhold_ads_path %></li>
+        </ul>
+      </div>
+
+      <div class="ads-search">
+        <%= form_for :search, url: :search_my_ads, method: :get do |f| %>
+         <table><tr><td><%= f.text_field :text1, label: false, class: "input4" %></td><td><%= image_submit_tag("search-ads.jpg", align: "absmiddle", style: "width: 102px; height: 29px;") %></td></tr></table>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+  <%= form_for :advert, url: :repost, method: :put, html: {id: "my-form"} do |f| %>
+      <%= image_submit_tag('repost.jpg', id: :repost_button, style: "width: 58px; height: 24px;", disabled: true) if @adverts.present? %>
+      <%= image_submit_tag('delete.jpg', id: "delete", style: "width: 58px; height: 24px", disabled: true) if @adverts.present? %>
+      <table cellspacing="0"  cellpadding="6" width="100%" border="0">
+        <tr style=" background-color: #F7941E;" >
+          <td width="3%" style=" text-align: center;"><input type="checkbox" id="all" /></td>
+          <td colspan="2" width="40%" style=" text-align: center;">My Ads</td>
+          <td width="10%" style=" text-align: center;">Price</td>
+          <td width="10%" style=" text-align: center;">Posted</td>
+          <td width="7%" style=" text-align: center;">Visits</td>
+          <td width="7%" style=" text-align: center;">On Page [?]</td>
+          <td width="15%" style=" text-align: center;">Options</td>
+        </tr>
+        <% if @adverts.present? %>
+            <% @adverts.each do |advert| %>
+                <tr>
+                  <td style=" text-align: center;"><%= check_box_tag "advert_id[]", advert.id, false, class: 'radio_class' %></td>
+                  <td width="5%" style=" text-align: center;"><%= advert.photos.present? ? image_tag((advert.photos.first).image(:thumb)) : 'Image not available.' %></td>
+                  <td width="35%" style="padding-left: 10px;"><b><%= link_to advert.title, advert %></b>
+                    <br><%= link_to Category.find(advert.category_id).section.name, section_path(Category.find(advert.category_id).section.name) %> > <span class="blue"><%= link_to advert.category.name, category_path(advert.category) %>
+                    <% if advert.subcategory_id.present? %> > <%= link_to advert.subcategory.name, subcategory_path(advert.subcategory.name) %> <% end %></span>
+                    <br>Location : <span class="blue"><%= advert.location.name %></span></td>
+                  <td style=" text-align: center;"><%= advert.pricing_strategy == "Price" ? number_to_currency(text_field_tag "price[]",'', value: advert.price, class: "input2") : advert.pricing_strategy  %></td>
+                  <td style=" text-align: center;"><%= advert.created_at.strftime("%e-%b-%y") %></td>
+                  <td style=" text-align: center;"><%= advert.visits %></td>
+                  <td style=" text-align: center;"> > <%= advert.id %></td>
+                  <td style=" text-align: center;"><%= promotion_required?(advert) %> <%= link_to "Edit", edit_advert_path(advert) %>&#160;&#160;|&#160;&#160;<%= link_to "Delete", advert, method: :delete, confirm: 'Are you sure ?' %></td>
+                </tr>
+                <tr><td colspan="8" style="border-bottom: 1px solid #ccc; margin: 0; padding: 0; "></td>
+                </tr>
+            <% end %>
+        <% else  %>
+            <tr>
+              <td colspan="8" align="left">You have no ads that are Pending at this time.</td>
+            </tr>
+        <% end %>
+      </table>
+  <% end %>
+  <div class="paging-bar"><%= will_paginate @adverts %></div> <br>
+</div>
+
+
+<!--Terms of Use end-->
+<!--right side end-->
