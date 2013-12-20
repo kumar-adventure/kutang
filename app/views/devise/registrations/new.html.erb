@@ -1,33 +1,58 @@
-<div class="padding" style="padding-left:50px;font-size:small;">
-  <br >
-  <span style="font-weight:bold;margin-left: 45px;">Registration</span>
-  <br >
-  <ul style="list-style-type:disc;list-style-position:inside;margin-left: 5px;">
-    <li style="list-style: none" >Registration is optional, but registration does allow you to:</li>
+<div id="product-page" style="background-color: #F8F9E9" >
+  <div class="padding">
+    <div class="gray_box" style="font-size:9pt;width: 450px;margin: 70px auto 0 auto;">
+      <div class="heading">Registration</div>
+      <div class="inner-page" >
+        <br >
+        <ul style="list-style-type:disc;list-style-position:inside;margin-left: 5px;">
+          <li style="list-style: none" >Registration is optional, but registration does allow you to:</li>
 
-    <li>Post and manage Ads without having to confirm each action via email</li>
-    <li>Reserve your own nickname</li>
-    <li>Participate in discussions</li>
-  </ul>
+          <li>Post and manage Ads without having to confirm each action via email</li>
+          <li>Reserve your own nickname</li>
+          <li>Participate in discussions</li>
+        </ul>
 
-  <div class="gray_box" style="margin-left:45px;">
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
 
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
+          To start registration please enter your email address below.
+          <div>
+            <span style="font-weight:bold;"><span class="red"> *</span>Email address</span>
+            <br>
+            <%= f.email_field :email, :autofocus => true, class: 'input1' %>
+          </div>
 
-      To start registration please enter your email address below.
-      <div><%= f.label :email %><br />
-      <%= f.email_field :email, :autofocus => true %></div>
+          <div>
+            <span style="font-weight:bold;"><span class="red"> *</span>Password(at least 6 characters) </span>
+            <br>
+            <%= f.password_field :password, class: 'input1' %>
+          </div>
 
-      <div><%= f.label :password %><br />
-      <%= f.password_field :password %></div>
+          <div>
+            <span style="font-weight:bold;"><span class="red"> *</span>Re-type password</span>
+            <br>
+            <%= f.password_field :password_confirmation, class: 'input1' %>
+          </div>
 
-      <div><%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation %></div>
+          <div>
+            <span style="font-weight:bold;">Nickname</span>
+            <br >
+            <%= f.text_field :nickname, class: 'input1' %>
+          </div>
 
-      <div><%= f.submit "Sign up" %></div>
-    <% end %>
+          <%= f.check_box :information, style: "float:left;" %> Yes, I would like Kutangaza to contact me about events,
+          new features, and other promotional information.
+          <br >
+          <%= f.check_box "terms_of_service", style: "float:left;" %> &#160;By clicking "Register", you are agreeing to our
+          <%= link_to "terms of use", terms_of_use_path, style: "color:#0066CC;text-decoration:underline;" %> and
+          <%= link_to "privacy policy", privacy_policy_path, style: "color:#0066CC;text-decoration:underline;" %>
+          <br >
+          <br >
+          <%= f.submit("Register", style: "color:black;background-color:#CDC953;border:thin blue solid;padding:2px 15px 2px 15px;") %>
+        <% end %>
 
-    <%= render "devise/shared/links" %>
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
   </div>
 </div>

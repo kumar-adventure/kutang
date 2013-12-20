@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   attr_accessible :admin, :name, :phone, :address, :nickname, :contact_person, :skype_id, :token, :terms_of_service,
                   :information, :password_digest
 
+  validates_acceptance_of :terms_of_service
 end

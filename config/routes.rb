@@ -2,6 +2,17 @@ Kutang::Application.routes.draw do
 
   devise_for :users
 
+  controller :pages do
+    get "privacy_policy"
+    get "program_policy"
+    get "terms_of_use"
+    get "about"
+    get "user_safety"
+    get "help"
+    get 'thanks'
+    get 'show'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
