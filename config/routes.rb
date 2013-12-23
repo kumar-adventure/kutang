@@ -25,6 +25,8 @@ Kutang::Application.routes.draw do
     get "search_user"
   end
 
+  resources :categories
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
