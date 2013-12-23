@@ -1,12 +1,14 @@
 <div class="row-fuid">
   <div class="span12">
+    <%count =0%>
   	<%@categories.each do |category|%>
-  	  <p><%=category.name%></p>
-  	  <%category.subcategories.each do |sub_cat| %>
-  	  <div class="span4">
-	  	  <%= link_to sub_cat.name, ""%>
-	  	  <%end%>
-	  </div>	
+      <%count += 1%>
+      <div class="span3 <%= 'margin-top210' if count==7  %> <%= 'margin-top195' if count==5  %> <%= 'margin-top240' if count==8  %> " >
+    	  <p><%=category.name%></p>
+    	  <%category.subcategories.each do |sub_cat| %>
+  	  	  <%= link_to sub_cat.name, ""%><br>
+  	  	  <%end%>
+  	  </div>	
   	<%end%>
   </div>
 </div>
